@@ -1,25 +1,21 @@
 # Nodejs 安装
 
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [安装方法](#安装方法)
-    - [先安装 nvm](#先安装-nvm)
-    - [安装 Nodejs](#安装-nodejs)
-- [脚本](#脚本)
-
-<!-- /TOC -->
+* [安装方法](nodejs-install.md#安装方法)
+  * [先安装 nvm](nodejs-install.md#先安装-nvm)
+  * [安装 Nodejs](nodejs-install.md#安装-nodejs)
+* [脚本](nodejs-install.md#脚本)
 
 ## 安装方法
 
 ### 先安装 nvm
 
-推荐安装 nvm(Node Version Manager) ，来管理 node.js 版本。
+推荐安装 nvm\(Node Version Manager\) ，来管理 node.js 版本。
 
 安装步骤如下：
 
 （1）执行安装脚本
 
-```
+```text
 rm -rf ~/.nvm
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
 . ~/.nvm/nvm.sh
@@ -39,7 +35,7 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | b
 
 执行以下命令：
 
-```
+```text
 nvm install 8.9.4
 nvm use 8.9.4
 ```
@@ -52,9 +48,10 @@ nvm use 8.9.4
 
 ## 脚本
 
-| [安装脚本](https://github.com/dunwu/linux-tutorial/tree/master/codes/linux/soft) |
+\| [安装脚本](https://github.com/dunwu/linux-tutorial/tree/master/codes/linux/soft) \|
 
 ## 更多内容
 
-- **引申**
-  - [操作系统、运维部署总结系列](https://github.com/dunwu/OS)
+* **引申**
+  * [操作系统、运维部署总结系列](https://github.com/dunwu/OS)
+

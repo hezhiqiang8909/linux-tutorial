@@ -4,20 +4,16 @@
 >
 > 本文目的在于记录 svn 的安装、配置、使用。
 
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [1. 安装配置](#1-安装配置)
-    - [1.1. 安装 svn](#11-安装-svn)
-    - [1.2. 创建 svn 仓库](#12-创建-svn-仓库)
-    - [1.3. 配置 svnserve.conf](#13-配置-svnserveconf)
-    - [1.4. 配置 passwd](#14-配置-passwd)
-    - [1.5. 配置 authz](#15-配置-authz)
-    - [1.6. 启动关闭 svn](#16-启动关闭-svn)
-    - [1.7. 开机自启动 svn 方法](#17-开机自启动-svn-方法)
-    - [1.8. svn 客户端访问](#18-svn-客户端访问)
-- [2. 参考资料](#2-参考资料)
-
-<!-- /TOC -->
+* [1. 安装配置](svn-ops.md#1-安装配置)
+  * [1.1. 安装 svn](svn-ops.md#11-安装-svn)
+  * [1.2. 创建 svn 仓库](svn-ops.md#12-创建-svn-仓库)
+  * [1.3. 配置 svnserve.conf](svn-ops.md#13-配置-svnserveconf)
+  * [1.4. 配置 passwd](svn-ops.md#14-配置-passwd)
+  * [1.5. 配置 authz](svn-ops.md#15-配置-authz)
+  * [1.6. 启动关闭 svn](svn-ops.md#16-启动关闭-svn)
+  * [1.7. 开机自启动 svn 方法](svn-ops.md#17-开机自启动-svn-方法)
+  * [1.8. svn 客户端访问](svn-ops.md#18-svn-客户端访问)
+* [2. 参考资料](svn-ops.md#2-参考资料)
 
 ## 1. 安装配置
 
@@ -38,9 +34,9 @@ conf  db  format  hooks  locks  README.txt
 
 在 conf 目录下有三个重要的配置文件
 
-- authz - 是权限控制文件
-- passwd - 是帐号密码文件
-- svnserve.conf - 是 SVN 服务配置文件
+* authz - 是权限控制文件
+* passwd - 是帐号密码文件
+* svnserve.conf - 是 SVN 服务配置文件
 
 ### 1.3. 配置 svnserve.conf
 
@@ -50,7 +46,7 @@ $ vim /share/svn/conf/svnserve.conf
 
 打开下面的 5 个注释
 
-```ini
+```text
 anon-access = read      #匿名用户可读
 auth-access = write     #授权用户可写
 password-db = passwd    #使用哪个文件作为账号文件
@@ -66,7 +62,7 @@ $ vim /share/svn/conf/passwd
 
 添加内容如下：
 
-```ini
+```text
 [users]
 user1 = 123456
 user2 = 123456
@@ -81,7 +77,7 @@ $ vim /share/svn/conf/authz
 
 添加内容如下：
 
-```ini
+```text
 [/]
 user1 = rw
 user2 = rw
@@ -145,11 +141,12 @@ $ vi /etc/sysconfig/svnserve
 
 在新的窗口，输入地址 `svn://<你的 IP>` 即可，不出意外输入用户名和密码就能连接成功了（这里的用户、密码必须在 passwd 配置文件的清单中）。默认端口 3690，如果你修改了端口，那么要记得加上端口号。如下图所示：
 
-<br>![img](http://dunwu.test.upcdn.net/snap/20190129175443.png!zp)<br>
+![img](http://dunwu.test.upcdn.net/snap/20190129175443.png!zp)
 
 ## 2. 参考资料
 
-- https://www.cnblogs.com/liuxianan/p/linux_install_svn_server.html
-- https://blog.csdn.net/testcs_dn/article/details/45395645
-- https://www.cnblogs.com/moxiaoan/p/5683743.html
-- https://blog.csdn.net/realghost/article/details/52396648
+* [https://www.cnblogs.com/liuxianan/p/linux\_install\_svn\_server.html](https://www.cnblogs.com/liuxianan/p/linux_install_svn_server.html)
+* [https://blog.csdn.net/testcs\_dn/article/details/45395645](https://blog.csdn.net/testcs_dn/article/details/45395645)
+* [https://www.cnblogs.com/moxiaoan/p/5683743.html](https://www.cnblogs.com/moxiaoan/p/5683743.html)
+* [https://blog.csdn.net/realghost/article/details/52396648](https://blog.csdn.net/realghost/article/details/52396648)
+

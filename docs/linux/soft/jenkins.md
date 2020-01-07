@@ -2,7 +2,7 @@
 
 > 环境要求
 >
-> - JDK：JDK7+，官网推荐是 JDK 8
+> * JDK：JDK7+，官网推荐是 JDK 8
 
 ## 部署
 
@@ -16,7 +16,7 @@
 
 进入[官网下载地址](https://jenkins.io/zh/download/)，选择合适的版本下载。
 
-我选择的是最新稳定 war 版本 2.89.4：http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+我选择的是最新稳定 war 版本 2.89.4：[http://mirrors.jenkins.io/war-stable/latest/jenkins.war](http://mirrors.jenkins.io/war-stable/latest/jenkins.war)
 
 我个人喜欢存放在：`/opt/software/jenkins`
 
@@ -71,7 +71,7 @@ systemctl start jenkins
 
 1.执行 `vim /root/.jenkins/config.xml` ，删除以下内容
 
-```xml
+```markup
 <useSecurity>true</useSecurity>
 <authorizationStrategy class="hudson.security.FullControlOnceLoggedInAuthorizationStrategy">
   <denyAnonymousReadAccess>true</denyAnonymousReadAccess>
@@ -84,13 +84,13 @@ systemctl start jenkins
 
 2.重启 Jenkins 服务；
 
-3.进入首页>“系统管理”>“Configure Global Security”；
+3.进入首页&gt;“系统管理”&gt;“Configure Global Security”；
 
 4.勾选“启用安全”；
 
 5.点选“Jenkins 专有用户数据库”，并点击“保存”；
 
-6.重新点击首页>“系统管理”,发现此时出现“管理用户”；
+6.重新点击首页&gt;“系统管理”,发现此时出现“管理用户”；
 
 7.点击进入展示“用户列表”；
 
@@ -148,18 +148,18 @@ chown -R root:root /var/log/jenkins
 
 （3）重启 Jenkins
 
-```
+```text
 systemctl restart jenkins
 ```
 
 ## 参考资料
 
-- **官方**
-  - [Jenkins 官网](https://jenkins.io/zh/)
+* **官方**
+  * [Jenkins 官网](https://jenkins.io/zh/)
+* **引申**
+  * [操作系统、运维部署总结系列](https://github.com/dunwu/OS)
+* **引用**
+  * [https://jenkins.io/doc/pipeline/tour/getting-started/](https://jenkins.io/doc/pipeline/tour/getting-started/)
+  * [https://www.cnblogs.com/austinspark-jessylu/p/6894944.html](https://www.cnblogs.com/austinspark-jessylu/p/6894944.html)
+  * [http://blog.csdn.net/jlminghui/article/details/54952148](http://blog.csdn.net/jlminghui/article/details/54952148)
 
-- **引申**
-  - [操作系统、运维部署总结系列](https://github.com/dunwu/OS)
-- **引用**
-  - https://jenkins.io/doc/pipeline/tour/getting-started/
-  - https://www.cnblogs.com/austinspark-jessylu/p/6894944.html
-  - http://blog.csdn.net/jlminghui/article/details/54952148

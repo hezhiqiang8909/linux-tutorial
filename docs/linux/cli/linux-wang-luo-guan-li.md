@@ -4,21 +4,21 @@
 
 ## 1. Linux 网络应用要点
 
-- 下载文件 - 使用 [curl](#curl)、[wget](#wget)
-- telnet 方式登录远程主机，对远程主机进行管理 - 使用 [telnet](#telnet)
-- 查看或操纵 Linux 主机的路由、网络设备、策略路由和隧道 - 使用 [ip](#ip)
-- 查看和设置系统的主机名 - 使用 [hostname](#hostname)
-- 查看和配置 Linux 内核中网络接口的网络参数 - 使用 [ifconfig](#ifconfig)
-- 查看和设置 Linux 内核中的网络路由表 - 使用 [route](#route)
-- ssh 方式连接远程主机 - 使用 ssh
-- 为 ssh 生成、管理和转换认证密钥 - 使用 [ssh-keygen](#ssh-keygen)
-- 查看、设置防火墙（Centos7），使用 [firewalld](#firewalld)
-- 查看、设置防火墙（Centos7 以前），使用 [iptables](#iptables)
-- 查看域名信息 - 使用 [host](#host), [nslookup](#nslookup)
-- 设置路由 - 使用 [nc/netcat](#ncnetcat)
-- 测试主机之间网络是否连通 - 使用 [ping](#ping)
-- 追踪数据在网络上的传输时的全部路径 - 使用 [traceroute](#traceroute)
-- 查看当前工作的端口信息 - 使用 [netstat](#netstat)
+* 下载文件 - 使用 [curl](linux-wang-luo-guan-li.md#curl)、[wget](linux-wang-luo-guan-li.md#wget)
+* telnet 方式登录远程主机，对远程主机进行管理 - 使用 [telnet](linux-wang-luo-guan-li.md#telnet)
+* 查看或操纵 Linux 主机的路由、网络设备、策略路由和隧道 - 使用 [ip](linux-wang-luo-guan-li.md#ip)
+* 查看和设置系统的主机名 - 使用 [hostname](linux-wang-luo-guan-li.md#hostname)
+* 查看和配置 Linux 内核中网络接口的网络参数 - 使用 [ifconfig](linux-wang-luo-guan-li.md#ifconfig)
+* 查看和设置 Linux 内核中的网络路由表 - 使用 [route](linux-wang-luo-guan-li.md#route)
+* ssh 方式连接远程主机 - 使用 ssh
+* 为 ssh 生成、管理和转换认证密钥 - 使用 [ssh-keygen](linux-wang-luo-guan-li.md#ssh-keygen)
+* 查看、设置防火墙（Centos7），使用 [firewalld](linux-wang-luo-guan-li.md#firewalld)
+* 查看、设置防火墙（Centos7 以前），使用 [iptables](linux-wang-luo-guan-li.md#iptables)
+* 查看域名信息 - 使用 [host](linux-wang-luo-guan-li.md#host), [nslookup](linux-wang-luo-guan-li.md#nslookup)
+* 设置路由 - 使用 [nc/netcat](linux-wang-luo-guan-li.md#ncnetcat)
+* 测试主机之间网络是否连通 - 使用 [ping](linux-wang-luo-guan-li.md#ping)
+* 追踪数据在网络上的传输时的全部路径 - 使用 [traceroute](linux-wang-luo-guan-li.md#traceroute)
+* 查看当前工作的端口信息 - 使用 [netstat](linux-wang-luo-guan-li.md#netstat)
 
 ## 2. 命令常见用法
 
@@ -26,7 +26,7 @@
 
 > curl 命令是一个利用 URL 规则在命令行下工作的文件传输工具。它支持文件的上传和下载，所以是综合传输工具，但按传统，习惯称 curl 为下载工具。作为一款强力工具，curl 支持包括 HTTP、HTTPS、ftp 等众多协议，还支持 POST、cookies、认证、从指定偏移处下载部分文件、用户代理字符串、限速、文件大小、进度条等特征。做网页处理流程和数据检索自动化，curl 可以祝一臂之力。
 >
-> 参考：http://man.linuxde.net/curl
+> 参考：[http://man.linuxde.net/curl](http://man.linuxde.net/curl)
 
 示例：
 
@@ -43,7 +43,7 @@ $ curl http://man.linuxde.net/test.iso -o filename.iso --progress
 
 > wget 命令用来从指定的 URL 下载文件。
 >
-> 参考：http://man.linuxde.net/wget
+> 参考：[http://man.linuxde.net/wget](http://man.linuxde.net/wget)
 
 示例：
 
@@ -56,7 +56,7 @@ $ wget http://www.linuxde.net/testfile.zip
 
 > telnet 命令用于登录远程主机，对远程主机进行管理。
 >
-> 参考：http://man.linuxde.net/telnet
+> 参考：[http://man.linuxde.net/telnet](http://man.linuxde.net/telnet)
 
 示例：
 
@@ -77,7 +77,7 @@ Login incorrect
 
 > ip 命令用来查看或操纵 Linux 主机的路由、网络设备、策略路由和隧道，是 Linux 下较新的功能强大的网络配置工具。
 >
-> 参考：http://man.linuxde.net/ip
+> 参考：[http://man.linuxde.net/ip](http://man.linuxde.net/ip)
 
 示例：
 
@@ -107,7 +107,7 @@ $ ip route delete 192.168.1.0/24 dev eth0 # 删除路由
 
 > hostname 命令用于查看和设置系统的主机名称。环境变量 HOSTNAME 也保存了当前的主机名。在使用 hostname 命令设置主机名后，系统并不会永久保存新的主机名，重新启动机器之后还是原来的主机名。如果需要永久修改主机名，需要同时修改 `/etc/hosts` 和 `/etc/sysconfig/network` 的相关内容。
 >
-> 参考：http://man.linuxde.net/hostname
+> 参考：[http://man.linuxde.net/hostname](http://man.linuxde.net/hostname)
 
 示例：
 
@@ -120,7 +120,7 @@ AY1307311912260196fcZ
 
 > ifconfig 命令被用于查看和配置 Linux 内核中网络接口的网络参数。用 ifconfig 命令配置的网卡信息，在网卡重启后机器重启后，配置就不存在。要想将上述的配置信息永远的存的电脑里，那就要修改网卡的配置文件了。
 >
-> 参考：http://man.linuxde.net/ifconfig
+> 参考：[http://man.linuxde.net/ifconfig](http://man.linuxde.net/ifconfig)
 
 示例：
 
@@ -148,7 +148,7 @@ lo        Link encap:Local Loopback
 
 > route 命令用来查看和设置 Linux 内核中的网络路由表，route 命令设置的路由主要是静态路由。要实现两个不同的子网之间的通信，需要一台连接两个网络的路由器，或者同时位于两个网络的网关来实现。
 >
-> 参考：http://man.linuxde.net/route
+> 参考：[http://man.linuxde.net/route](http://man.linuxde.net/route)
 
 示例：
 
@@ -175,7 +175,7 @@ route del default gw 192.168.120.240                   # 删除默认网关
 
 > ssh 命令是 openssh 套件中的客户端连接工具，可以给予 ssh 加密协议实现安全的远程登录服务器。
 >
-> 参考：http://man.linuxde.net/ssh
+> 参考：[http://man.linuxde.net/ssh](http://man.linuxde.net/ssh)
 
 示例：
 
@@ -192,61 +192,61 @@ ssh -p 2211 root@140.206.185.170
 
 > ssh-keygen 命令用于为 ssh 生成、管理和转换认证密钥，它支持 RSA 和 DSA 两种认证密钥。
 >
-> 参考：http://man.linuxde.net/ssh-keygen
+> 参考：[http://man.linuxde.net/ssh-keygen](http://man.linuxde.net/ssh-keygen)
 
 ### 2.10. firewalld
 
 > firewalld 命令是 Linux 上的防火墙软件（Centos7 默认防火墙）。
 >
-> 参考：https://www.cnblogs.com/moxiaoan/p/5683743.html
+> 参考：[https://www.cnblogs.com/moxiaoan/p/5683743.html](https://www.cnblogs.com/moxiaoan/p/5683743.html)
 
 #### 2.10.1. firewalld 的基本使用
 
-- 启动 - systemctl start firewalld
-- 关闭 - systemctl stop firewalld
-- 查看状态 - systemctl status firewalld
-- 开机禁用 - systemctl disable firewalld
-- 开机启用 - systemctl enable firewalld
+* 启动 - systemctl start firewalld
+* 关闭 - systemctl stop firewalld
+* 查看状态 - systemctl status firewalld
+* 开机禁用 - systemctl disable firewalld
+* 开机启用 - systemctl enable firewalld
 
 #### 2.10.2. 使用 systemctl 管理 firewalld 服务
 
 systemctl 是 CentOS7 的服务管理工具中主要的工具，它融合之前 service 和 chkconfig 的功能于一体。
 
-- 启动一个服务 - systemctl start firewalld.service
-- 关闭一个服务 - systemctl stop firewalld.service
-- 重启一个服务 - systemctl restart firewalld.service
-- 显示一个服务的状态 - systemctl status firewalld.service
-- 在开机时启用一个服务 - systemctl enable firewalld.service
-- 在开机时禁用一个服务 - systemctl disable firewalld.service
-- 查看服务是否开机启动 - systemctl is-enabled firewalld.service
-- 查看已启动的服务列表 - systemctl list-unit-files|grep enabled
-- 查看启动失败的服务列表 - systemctl --failed
+* 启动一个服务 - systemctl start firewalld.service
+* 关闭一个服务 - systemctl stop firewalld.service
+* 重启一个服务 - systemctl restart firewalld.service
+* 显示一个服务的状态 - systemctl status firewalld.service
+* 在开机时启用一个服务 - systemctl enable firewalld.service
+* 在开机时禁用一个服务 - systemctl disable firewalld.service
+* 查看服务是否开机启动 - systemctl is-enabled firewalld.service
+* 查看已启动的服务列表 - systemctl list-unit-files\|grep enabled
+* 查看启动失败的服务列表 - systemctl --failed
 
 #### 2.10.3. 配置 firewalld-cmd
 
-- 查看版本 - firewall-cmd --version
-- 查看帮助 - firewall-cmd --help
-- 显示状态 - firewall-cmd --state
-- 查看所有打开的端口 - firewall-cmd --zone=public --list-ports
-- 更新防火墙规则 - firewall-cmd --reload
-- 查看区域信息: firewall-cmd --get-active-zones
-- 查看指定接口所属区域 - firewall-cmd --get-zone-of-interface=eth0
-- 拒绝所有包：firewall-cmd --panic-on
-- 取消拒绝状态 - firewall-cmd --panic-off
-- 查看是否拒绝 - firewall-cmd --query-panic
+* 查看版本 - firewall-cmd --version
+* 查看帮助 - firewall-cmd --help
+* 显示状态 - firewall-cmd --state
+* 查看所有打开的端口 - firewall-cmd --zone=public --list-ports
+* 更新防火墙规则 - firewall-cmd --reload
+* 查看区域信息: firewall-cmd --get-active-zones
+* 查看指定接口所属区域 - firewall-cmd --get-zone-of-interface=eth0
+* 拒绝所有包：firewall-cmd --panic-on
+* 取消拒绝状态 - firewall-cmd --panic-off
+* 查看是否拒绝 - firewall-cmd --query-panic
 
 #### 2.10.4. 在防火墙中开放一个端口
 
-- 添加（--permanent 永久生效，没有此参数重启后失效） - firewall-cmd --zone=public --add-port=80/tcp --permanent
-- 重新载入 - firewall-cmd --reload
-- 查看 - firewall-cmd --zone= public --query-port=80/tcp
-- 删除 - firewall-cmd --zone= public --remove-port=80/tcp --permanent
+* 添加（--permanent 永久生效，没有此参数重启后失效） - firewall-cmd --zone=public --add-port=80/tcp --permanent
+* 重新载入 - firewall-cmd --reload
+* 查看 - firewall-cmd --zone= public --query-port=80/tcp
+* 删除 - firewall-cmd --zone= public --remove-port=80/tcp --permanent
 
 ### 2.11. iptables
 
 > iptables 命令是 Linux 上常用的防火墙软件，是 netfilter 项目的一部分。可以直接配置，也可以通过许多前端和图形界面配置。
 >
-> 参考：http://man.linuxde.net/iptables
+> 参考：[http://man.linuxde.net/iptables](http://man.linuxde.net/iptables)
 
 示例：
 
@@ -290,7 +290,7 @@ Chain OUTPUT (policy ACCEPT 3382K packets, 1819M bytes)
 
 > host 命令是常用的分析域名查询工具，可以用来测试域名系统工作是否正常。
 >
-> 参考：http://man.linuxde.net/host
+> 参考：[http://man.linuxde.net/host](http://man.linuxde.net/host)
 
 示例：
 
@@ -317,7 +317,7 @@ Received 54 bytes from 202.96.104.15#53 in 0 ms
 
 > nslookup 命令是常用域名查询工具，就是查 DNS 信息用的命令。
 >
-> 参考：http://man.linuxde.net/nslookup
+> 参考：[http://man.linuxde.net/nslookup](http://man.linuxde.net/nslookup)
 
 示例：
 
@@ -336,7 +336,7 @@ Address: 100.42.212.8
 
 > nc 命令是 netcat 命令的简称，都是用来设置路由器。
 >
-> 参考：http://man.linuxde.net/nc_netcat
+> 参考：[http://man.linuxde.net/nc\_netcat](http://man.linuxde.net/nc_netcat)
 
 示例：
 
@@ -356,7 +356,7 @@ Address: 100.42.212.8
 
 > ping 命令用来测试主机之间网络的连通性。执行 ping 指令会使用 ICMP 传输协议，发出要求回应的信息，若远端主机的网络功能没有问题，就会回应该信息，因而得知该主机运作正常。
 >
-> 参考：http://man.linuxde.net/ping
+> 参考：[http://man.linuxde.net/ping](http://man.linuxde.net/ping)
 
 示例：
 
@@ -378,7 +378,7 @@ rtt min/avg/max/mdev = 174.068/176.916/178.182/1.683 ms
 
 > traceroute 命令用于追踪数据包在网络上的传输时的全部路径，它默认发送的数据包大小是 40 字节。
 >
-> 参考：http://man.linuxde.net/traceroute
+> 参考：[http://man.linuxde.net/traceroute](http://man.linuxde.net/traceroute)
 
 示例：
 
@@ -403,7 +403,7 @@ traceroute to www.58.com (211.151.111.30), 30 hops max, 40 byte packets
 
 > netstat 命令用来打印 Linux 中网络系统的状态信息，可让你得知整个 Linux 系统的网络情况。
 >
-> 参考：http://man.linuxde.net/netstat
+> 参考：[http://man.linuxde.net/netstat](http://man.linuxde.net/netstat)
 
 示例：
 
@@ -424,3 +424,4 @@ netstat -s   显示所有端口的统计信息
 netstat -st   显示TCP端口的统计信息
 netstat -su   显示UDP端口的统计信息
 ```
+

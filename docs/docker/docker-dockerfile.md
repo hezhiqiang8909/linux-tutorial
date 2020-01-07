@@ -1,29 +1,25 @@
 # Dockerfile 最佳实践
 
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [一、Dockerfile 指令](#一dockerfile-指令)
-  - [FROM(指定基础镜像)](#from指定基础镜像)
-  - [RUN(执行命令)](#run执行命令)
-  - [COPY(复制文件)](#copy复制文件)
-  - [ADD(更高级的复制文件)](#add更高级的复制文件)
-  - [CMD(容器启动命令)](#cmd容器启动命令)
-  - [ENTRYPOINT(入口点)](#entrypoint入口点)
-  - [ENV(设置环境变量)](#env设置环境变量)
-  - [ARG(构建参数)](#arg构建参数)
-  - [VOLUME(定义匿名卷)](#volume定义匿名卷)
-  - [EXPOSE(暴露端口)](#expose暴露端口)
-  - [WORKDIR(指定工作目录)](#workdir指定工作目录)
-  - [USER(指定当前用户)](#user指定当前用户)
-  - [HEALTHCHECK(健康检查)](#healthcheck健康检查)
-  - [ONBUILD(为他人作嫁衣裳)](#onbuild为他人作嫁衣裳)
-- [参考资料](#参考资料)
-
-<!-- /TOC -->
+* [一、Dockerfile 指令](docker-dockerfile.md#一dockerfile-指令)
+  * [FROM\(指定基础镜像\)](docker-dockerfile.md#from指定基础镜像)
+  * [RUN\(执行命令\)](docker-dockerfile.md#run执行命令)
+  * [COPY\(复制文件\)](docker-dockerfile.md#copy复制文件)
+  * [ADD\(更高级的复制文件\)](docker-dockerfile.md#add更高级的复制文件)
+  * [CMD\(容器启动命令\)](docker-dockerfile.md#cmd容器启动命令)
+  * [ENTRYPOINT\(入口点\)](docker-dockerfile.md#entrypoint入口点)
+  * [ENV\(设置环境变量\)](docker-dockerfile.md#env设置环境变量)
+  * [ARG\(构建参数\)](docker-dockerfile.md#arg构建参数)
+  * [VOLUME\(定义匿名卷\)](docker-dockerfile.md#volume定义匿名卷)
+  * [EXPOSE\(暴露端口\)](docker-dockerfile.md#expose暴露端口)
+  * [WORKDIR\(指定工作目录\)](docker-dockerfile.md#workdir指定工作目录)
+  * [USER\(指定当前用户\)](docker-dockerfile.md#user指定当前用户)
+  * [HEALTHCHECK\(健康检查\)](docker-dockerfile.md#healthcheck健康检查)
+  * [ONBUILD\(为他人作嫁衣裳\)](docker-dockerfile.md#onbuild为他人作嫁衣裳)
+* [参考资料](docker-dockerfile.md#参考资料)
 
 ## 一、Dockerfile 指令
 
-### FROM(指定基础镜像)
+### FROM\(指定基础镜像\)
 
 > 作用：**`FROM` 指令用于指定基础镜像**。
 
@@ -35,7 +31,7 @@
 
 除了选择现有镜像为基础镜像外，Docker 还存在一个特殊的镜像，名为 `scratch`。这个镜像是虚拟的概念，并不实际存在，它表示一个空白的镜像。
 
-```dockerfile
+```text
 FROM scratch
 ...
 ```
@@ -44,21 +40,21 @@ FROM scratch
 
 不以任何系统为基础，直接将可执行文件复制进镜像的做法并不罕见，比如 [`swarm`](https://hub.docker.com/_/swarm/)、[`coreos/etcd`](https://quay.io/repository/coreos/etcd)。对于 Linux 下静态编译的程序来说，并不需要有操作系统提供运行时支持，所需的一切库都已经在可执行文件里了，因此直接 `FROM scratch` 会让镜像体积更加小巧。使用 [Go 语言](https://golang.org/) 开发的应用很多会使用这种方式来制作镜像，这也是为什么有人认为 Go 是特别适合容器微服务架构的语言的原因之一。
 
-### RUN(执行命令)
+### RUN\(执行命令\)
 
 > **`RUN` 指令是用来执行命令行命令的**。由于命令行的强大能力，`RUN` 指令在定制镜像时是最常用的指令之一。其格式有两种：
 >
-> - _shell_ 格式：`RUN <命令>`，就像直接在命令行中输入的命令一样。刚才写的 Dockerfile 中的 `RUN` 指令就是这种格式。
+> * _shell_ 格式：`RUN <命令>`，就像直接在命令行中输入的命令一样。刚才写的 Dockerfile 中的 `RUN` 指令就是这种格式。
 >
-> ```dockerfile
+> ```text
 > RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 > ```
 >
-> - _exec_ 格式：`RUN ["可执行文件", "参数1", "参数2"]`，这更像是函数调用中的格式。
+> * _exec_ 格式：`RUN ["可执行文件", "参数1", "参数2"]`，这更像是函数调用中的格式。
 
 既然 `RUN` 就像 Shell 脚本一样可以执行命令，那么我们是否就可以像 Shell 脚本一样把每个命令对应一个 RUN 呢？比如这样：
 
-```dockerfile
+```text
 FROM debian:jessie
 
 RUN apt-get update
@@ -78,7 +74,7 @@ _Union FS 是有最大层数限制的，比如 AUFS，曾经是最大不得超�
 
 上面的 `Dockerfile` 正确的写法应该是这样：
 
-```dockerfile
+```text
 FROM debian:jessie
 
 RUN buildDeps='gcc libc6-dev make' \
@@ -103,24 +99,24 @@ RUN buildDeps='gcc libc6-dev make' \
 
 很多人初学 Docker 制作出了很臃肿的镜像的原因之一，就是忘记了每一层构建的最后一定要清理掉无关文件。
 
-### COPY(复制文件)
+### COPY\(复制文件\)
 
 > **`COPY` 指令将从构建上下文目录中 `<源路径>` 的文件/目录复制到新的一层的镜像内的 `<目标路径>` 位置。**
 
 格式：
 
-- `COPY [--chown=<user>:<group>] <源路径>... <目标路径>`
-- `COPY [--chown=<user>:<group>] ["<源路径1>",... "<目标路径>"]`
+* `COPY [--chown=<user>:<group>] <源路径>... <目标路径>`
+* `COPY [--chown=<user>:<group>] ["<源路径1>",... "<目标路径>"]`
 
 示例：
 
-```dockerfile
+```text
 COPY package.json /usr/src/app/
 ```
 
 `<源路径>` 可以是多个，甚至可以是通配符，其通配符规则要满足 Go 的 [`filepath.Match`](https://golang.org/pkg/path/filepath/#Match) 规则，如：
 
-```dockerfile
+```text
 COPY hom* /mydir/
 COPY hom?.txt /mydir/
 ```
@@ -131,14 +127,14 @@ COPY hom?.txt /mydir/
 
 在使用该指令的时候还可以加上 `--chown=<user>:<group>` 选项来改变文件的所属用户及所属组。
 
-```dockerfile
+```text
 COPY --chown=55:mygroup files* /mydir/
 COPY --chown=bin files* /mydir/
 COPY --chown=1 files* /mydir/
 COPY --chown=10:11 files* /mydir/
 ```
 
-### ADD(更高级的复制文件)
+### ADD\(更高级的复制文件\)
 
 > `ADD` 指令和 `COPY` 的格式和性质基本一致。但是在 `COPY` 基础上增加了一些功能。
 >
@@ -148,7 +144,7 @@ COPY --chown=10:11 files* /mydir/
 
 在某些情况下，这个自动解压缩的功能非常有用，比如官方镜像 `ubuntu` 中：
 
-```dockerfile
+```text
 FROM scratch
 ADD ubuntu-xenial-core-cloudimg-amd64-root.tar.gz /
 ...
@@ -164,22 +160,22 @@ ADD ubuntu-xenial-core-cloudimg-amd64-root.tar.gz /
 
 在使用该指令的时候还可以加上 `--chown=<user>:<group>` 选项来改变文件的所属用户及所属组。
 
-```dockerfile
+```text
 ADD --chown=55:mygroup files* /mydir/
 ADD --chown=bin files* /mydir/
 ADD --chown=1 files* /mydir/
 ADD --chown=10:11 files* /mydir/
 ```
 
-### CMD(容器启动命令)
+### CMD\(容器启动命令\)
 
 > 之前介绍容器的时候曾经说过，Docker 不是虚拟机，容器就是进程。既然是进程，那么在启动容器的时候，需要指定所运行的程序及参数。`CMD` 指令就是用于指定默认的容器主进程的启动命令的。
 
 `CMD` 指令的格式和 `RUN` 相似，也是两种格式：
 
-- `shell` 格式：`CMD <命令>`
-- `exec` 格式：`CMD ["可执行文件", "参数1", "参数2"...]`
-- 参数列表格式：`CMD ["参数1", "参数2"...]`。在指定了 `ENTRYPOINT` 指令后，用 `CMD` 指定具体的参数。
+* `shell` 格式：`CMD <命令>`
+* `exec` 格式：`CMD ["可执行文件", "参数1", "参数2"...]`
+* 参数列表格式：`CMD ["参数1", "参数2"...]`。在指定了 `ENTRYPOINT` 指令后，用 `CMD` 指定具体的参数。
 
 在运行时可以指定新的命令来替代镜像设置中的这个默认命令，比如，`ubuntu` 镜像默认的 `CMD` 是 `/bin/bash`，如果我们直接 `docker run -it ubuntu` 的话，会直接进入 `bash`。我们也可以在运行时指定运行别的命令，如 `docker run -it ubuntu cat /etc/os-release`。这就是用 `cat /etc/os-release` 命令替换了默认的 `/bin/bash` 命令了，输出了系统版本信息。
 
@@ -187,13 +183,13 @@ ADD --chown=10:11 files* /mydir/
 
 如果使用 `shell` 格式的话，实际的命令会被包装为 `sh -c` 的参数的形式进行执行。比如：
 
-```dockerfile
+```text
 CMD echo $HOME
 ```
 
 在实际执行中，会将其变更为：
 
-```dockerfile
+```text
 CMD [ "sh", "-c", "echo $HOME" ]
 ```
 
@@ -205,7 +201,7 @@ Docker 不是虚拟机，容器中的应用都应该以前台执行，而不是�
 
 一些初学者将 `CMD` 写为：
 
-```dockerfile
+```text
 CMD service nginx start
 ```
 
@@ -217,11 +213,11 @@ CMD service nginx start
 
 正确的做法是直接执行 `nginx` 可执行文件，并且要求以前台形式运行。比如：
 
-```dockerfile
+```text
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-### ENTRYPOINT(入口点)
+### ENTRYPOINT\(入口点\)
 
 `ENTRYPOINT` 的格式和 `RUN` 指令格式一样，分为 `exec` 格式和 `shell` 格式。
 
@@ -239,7 +235,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 假设我们需要一个得知自己当前公网 IP 的镜像，那么可以先用 `CMD` 来实现：
 
-```dockerfile
+```text
 FROM ubuntu:18.04
 RUN apt-get update \
     && apt-get install -y curl \
@@ -271,7 +267,7 @@ $ docker run myip curl -s https://ip.cn -i
 
 这显然不是很好的解决方案，而使用 `ENTRYPOINT` 就可以解决这个问题。现在我们重新用 `ENTRYPOINT` 来实现这个镜像：
 
-```dockerfile
+```text
 FROM ubuntu:18.04
 RUN apt-get update \
     && apt-get install -y curl \
@@ -314,7 +310,7 @@ Connection: keep-alive
 
 这些准备工作是和容器 `CMD` 无关的，无论 `CMD` 为什么，都需要事先进行一个预处理的工作。这种情况下，可以写一个脚本，然后放入 `ENTRYPOINT` 中去执行，而这个脚本会将接到的参数（也就是 `<CMD>`）作为命令，在脚本最后执行。比如官方镜像 `redis` 中就是这么做的：
 
-```dockerfile
+```text
 FROM alpine:3.4
 ...
 RUN addgroup -S redis && adduser -S -G redis redis
@@ -346,18 +342,18 @@ $ docker run -it redis id
 uid=0(root) gid=0(root) groups=0(root)
 ```
 
-### ENV(设置环境变量)
+### ENV\(设置环境变量\)
 
 > `ENV` 指令用于设置环境变量。无论是后面的其它指令，如 `RUN`，还是运行时的应用，都可以直接使用这里定义的环境变量。
 
 格式：
 
-- `ENV <key> <value>`
-- `ENV <key1>=<value1> <key2>=<value2>...`
+* `ENV <key> <value>`
+* `ENV <key1>=<value1> <key2>=<value2>...`
 
 示例 1：
 
-```dockerfile
+```text
 ENV VERSION=1.0 DEBUG=on \
     NAME="Happy Feet"
 ```
@@ -368,7 +364,7 @@ ENV VERSION=1.0 DEBUG=on \
 
 定义了环境变量，那么在后续的指令中，就可以使用这个环境变量。比如在官方 `node` 镜像 `Dockerfile` 中，就有类似这样的代码：
 
-```dockerfile
+```text
 ENV NODE_VERSION 7.2.0
 
 RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
@@ -386,7 +382,7 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
 
 可以从这个指令列表里感觉到，环境变量可以使用的地方很多，很强大。通过环境变量，我们可以让一份 `Dockerfile` 制作更多的镜像，只需使用不同的环境变量即可。
 
-### ARG(构建参数)
+### ARG\(构建参数\)
 
 > `Dockerfile` 中的 `ARG` 指令是定义参数名称，以及定义其默认值。该默认值可以在构建命令 `docker build` 中用 `--build-arg <参数名>=<值>` 来覆盖。
 >
@@ -396,28 +392,28 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
 
 在 1.13 之前的版本，要求 `--build-arg` 中的参数名，必须在 `Dockerfile` 中用 `ARG` 定义过了，换句话说，就是 `--build-arg` 指定的参数，必须在 `Dockerfile` 中使用了。如果对应参数没有被使用，则会报错退出构建。从 1.13 开始，这种严格的限制被放开，不再报错退出，而是显示警告信息，并继续构建。这对于使用 CI 系统，用同样的构建流程构建不同的 `Dockerfile` 的时候比较有帮助，避免构建命令必须根据每个 Dockerfile 的内容修改。
 
-### VOLUME(定义匿名卷)
+### VOLUME\(定义匿名卷\)
 
 格式：
 
-- `VOLUME ["<路径1>", "<路径2>"...]`
-- `VOLUME <路径>`
+* `VOLUME ["<路径1>", "<路径2>"...]`
+* `VOLUME <路径>`
 
-之前我们说过，容器运行时应该尽量保持容器存储层不发生写操作，对于数据库类需要保存动态数据的应用，其数据库文件应该保存于卷(volume)中，后面的章节我们会进一步介绍 Docker 卷的概念。为了防止运行时用户忘记将动态文件所保存目录挂载为卷，在 `Dockerfile` 中，我们可以事先指定某些目录挂载为匿名卷，这样在运行时如果用户不指定挂载，其应用也可以正常运行，不会向容器存储层写入大量数据。
+之前我们说过，容器运行时应该尽量保持容器存储层不发生写操作，对于数据库类需要保存动态数据的应用，其数据库文件应该保存于卷\(volume\)中，后面的章节我们会进一步介绍 Docker 卷的概念。为了防止运行时用户忘记将动态文件所保存目录挂载为卷，在 `Dockerfile` 中，我们可以事先指定某些目录挂载为匿名卷，这样在运行时如果用户不指定挂载，其应用也可以正常运行，不会向容器存储层写入大量数据。
 
-```dockerfile
+```text
 VOLUME /data
 ```
 
 这里的 `/data` 目录就会在运行时自动挂载为匿名卷，任何向 `/data` 中写入的信息都不会记录进容器存储层，从而保证了容器存储层的无状态化。当然，运行时可以覆盖这个挂载设置。比如：
 
-```dockerfile
+```text
 docker run -d -v mydata:/data xxxx
 ```
 
 在这行命令中，就使用了 `mydata` 这个命名卷挂载到了 `/data` 这个位置，替代了 `Dockerfile` 中定义的匿名卷的挂载配置。
 
-### EXPOSE(暴露端口)
+### EXPOSE\(暴露端口\)
 
 > `EXPOSE` 指令是声明运行时容器提供服务端口，这只是一个声明，在运行时并不会因为这个声明应用就会开启这个端口的服务。在 Dockerfile 中写入这样的声明有两个好处，一个是帮助镜像使用者理解这个镜像服务的守护端口，以方便配置映射；另一个用处则是在运行时使用随机端口映射时，也就是 `docker run -P` 时，会自动随机映射 `EXPOSE` 的端口。
 >
@@ -425,7 +421,7 @@ docker run -d -v mydata:/data xxxx
 
 格式：`EXPOSE <端口1> [<端口2>...]`。
 
-### WORKDIR(指定工作目录)
+### WORKDIR\(指定工作目录\)
 
 > 使用 `WORKDIR` 指令可以来指定工作目录（或者称为当前目录），以后各层的当前目录就被改为指定的目录，如该目录不存在，`WORKDIR` 会帮你建立目录。
 
@@ -435,7 +431,7 @@ docker run -d -v mydata:/data xxxx
 
 之前提到一些初学者常犯的错误是把 `Dockerfile` 等同于 Shell 脚本来书写，这种错误的理解还可能会导致出现下面这样的错误：
 
-```dockerfile
+```text
 RUN cd /app
 RUN echo "hello" > world.txt
 ```
@@ -450,7 +446,7 @@ RUN echo "hello" > world.txt
 
 `LABEL`用于为镜像添加元数据，元数以键值对的形式指定：
 
-```
+```text
 LABEL <key>=<value> <key>=<value> <key>=<value> ...
 ```
 
@@ -458,13 +454,13 @@ LABEL <key>=<value> <key>=<value> <key>=<value> ...
 
 如，通过`LABEL`指定一些元数据：
 
-```
+```text
 LABEL version="1.0" description="这是一个Web服务器" by="IT笔录"
 ```
 
 指定后可以通过`docker inspect`查看：
 
-```
+```text
 $sudo docker inspect itbilu/test
 "Labels": {
     "version": "1.0",
@@ -473,13 +469,13 @@ $sudo docker inspect itbilu/test
 },
 ```
 
-*注意；*`Dockerfile`中还有个`MAINTAINER`命令，该命令用于指定镜像作者。但`MAINTAINER`并不推荐使用，更推荐使用`LABEL`来指定镜像作者。如：
+_注意；_`Dockerfile`中还有个`MAINTAINER`命令，该命令用于指定镜像作者。但`MAINTAINER`并不推荐使用，更推荐使用`LABEL`来指定镜像作者。如：
 
-```
+```text
 LABEL maintainer="itbilu.com"
 ```
 
-### USER(指定当前用户)
+### USER\(指定当前用户\)
 
 > `USER` 指令和 `WORKDIR` 相似，都是改变环境状态并影响以后的层。`WORKDIR` 是改变工作目录，`USER` 则是改变之后层的执行 `RUN`, `CMD` 以及 `ENTRYPOINT` 这类命令的身份。
 >
@@ -489,7 +485,7 @@ LABEL maintainer="itbilu.com"
 
 示例 1：
 
-```dockerfile
+```text
 RUN groupadd -r redis && useradd -r -g redis redis
 USER redis
 RUN [ "redis-server" ]
@@ -497,7 +493,7 @@ RUN [ "redis-server" ]
 
 如果以 `root` 执行的脚本，在执行期间希望改变身份，比如希望以某个已经建立好的用户来运行某个服务进程，不要使用 `su`或者 `sudo`，这些都需要比较麻烦的配置，而且在 TTY 缺失的环境下经常出错。建议使用 [`gosu`](https://github.com/tianon/gosu)。
 
-```dockerfile
+```text
 # 建立 redis 用户，并使用 gosu 换另一个用户执行命令
 RUN groupadd -r redis && useradd -r -g redis redis
 # 下载 gosu
@@ -508,12 +504,12 @@ RUN wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/downloa
 CMD [ "exec", "gosu", "redis", "redis-server" ]
 ```
 
-### HEALTHCHECK(健康检查)
+### HEALTHCHECK\(健康检查\)
 
 格式：
 
-- `HEALTHCHECK [选项] CMD <命令>`：设置检查容器健康状况的命令
-- `HEALTHCHECK NONE`：如果基础镜像有健康检查指令，使用这行可以屏蔽掉其健康检查指令
+* `HEALTHCHECK [选项] CMD <命令>`：设置检查容器健康状况的命令
+* `HEALTHCHECK NONE`：如果基础镜像有健康检查指令，使用这行可以屏蔽掉其健康检查指令
 
 `HEALTHCHECK` 指令是告诉 Docker 应该如何进行判断容器的状态是否正常，这是 Docker 1.12 引入的新指令。
 
@@ -525,9 +521,9 @@ CMD [ "exec", "gosu", "redis", "redis-server" ]
 
 `HEALTHCHECK` 支持下列选项：
 
-- `--interval=<间隔>`：两次健康检查的间隔，默认为 30 秒；
-- `--timeout=<时长>`：健康检查命令运行超时时间，如果超过这个时间，本次健康检查就被视为失败，默认 30 秒；
-- `--retries=<次数>`：当连续失败指定次数后，则将容器状态视为 `unhealthy`，默认 3 次。
+* `--interval=<间隔>`：两次健康检查的间隔，默认为 30 秒；
+* `--timeout=<时长>`：健康检查命令运行超时时间，如果超过这个时间，本次健康检查就被视为失败，默认 30 秒；
+* `--retries=<次数>`：当连续失败指定次数后，则将容器状态视为 `unhealthy`，默认 3 次。
 
 和 `CMD`, `ENTRYPOINT` 一样，`HEALTHCHECK` 只可以出现一次，如果写了多个，只有最后一个生效。
 
@@ -535,7 +531,7 @@ CMD [ "exec", "gosu", "redis", "redis-server" ]
 
 假设我们有个镜像是个最简单的 Web 服务，我们希望增加健康检查来判断其 Web 服务是否在正常工作，我们可以用 `curl` 来帮助判断，其 `Dockerfile` 的 `HEALTHCHECK` 可以这么写：
 
-```dockerfile
+```text
 FROM nginx
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 HEALTHCHECK --interval=5s --timeout=3s \
@@ -592,7 +588,7 @@ $ docker inspect --format '{{json .State.Health}}' web | python -m json.tool
 }
 ```
 
-### ONBUILD(为他人作嫁衣裳)
+### ONBUILD\(为他人作嫁衣裳\)
 
 格式：`ONBUILD <其它指令>`。
 
@@ -602,7 +598,7 @@ $ docker inspect --format '{{json .State.Health}}' web | python -m json.tool
 
 假设我们要制作 Node.js 所写的应用的镜像。我们都知道 Node.js 使用 `npm` 进行包管理，所有依赖、配置、启动信息等会放到 `package.json` 文件里。在拿到程序代码后，需要先进行 `npm install` 才可以获得所有需要的依赖。然后就可以通过 `npm start`来启动应用。因此，一般来说会这样写 `Dockerfile`：
 
-```dockerfile
+```text
 FROM node:slim
 RUN mkdir /app
 WORKDIR /app
@@ -618,7 +614,7 @@ CMD [ "npm", "start" ]
 
 那么我们可不可以做一个基础镜像，然后各个项目使用这个基础镜像呢？这样基础镜像更新，各个项目不用同步 `Dockerfile`的变化，重新构建后就继承了基础镜像的更新？好吧，可以，让我们看看这样的结果。那么上面的这个 `Dockerfile` 就会变为：
 
-```dockerfile
+```text
 FROM node:slim
 RUN mkdir /app
 WORKDIR /app
@@ -627,7 +623,7 @@ CMD [ "npm", "start" ]
 
 这里我们把项目相关的构建指令拿出来，放到子项目里去。假设这个基础镜像的名字为 `my-node` 的话，各个项目内的自己的 `Dockerfile` 就变为：
 
-```dockerfile
+```text
 FROM my-node
 COPY ./package.json /app
 RUN [ "npm", "install" ]
@@ -640,7 +636,7 @@ COPY . /app/
 
 `ONBUILD` 可以解决这个问题。让我们用 `ONBUILD` 重新写一下基础镜像的 `Dockerfile`:
 
-```dockerfile
+```text
 FROM node:slim
 RUN mkdir /app
 WORKDIR /app
@@ -652,19 +648,18 @@ CMD [ "npm", "start" ]
 
 这次我们回到原始的 `Dockerfile`，但是这次将项目相关的指令加上 `ONBUILD`，这样在构建基础镜像的时候，这三行并不会被执行。然后各个项目的 `Dockerfile` 就变成了简单地：
 
-```dockerfile
+```text
 FROM my-node
 ```
 
 是的，只有这么一行。当在各个项目目录中，用这个只有一行的 `Dockerfile` 构建镜像时，之前基础镜像的那三行 `ONBUILD` 就会开始执行，成功的将当前项目的代码复制进镜像、并且针对本项目执行 `npm install`，生成应用镜像。
 
-
-
 有任何的问题或建议，欢迎给我留言 :laughing:
 
 ## 参考资料
 
-- [Dockerfie 官方文档](https://docs.docker.com/engine/reference/builder/)
-- [Dockerfile 最佳实践文档](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
-- [Docker 官方镜像 Dockerfile](https://github.com/docker-library/docs)
-- [Dockerfile 指令详解](https://yeasy.gitbooks.io/docker_practice/content/image/dockerfile/)
+* [Dockerfie 官方文档](https://docs.docker.com/engine/reference/builder/)
+* [Dockerfile 最佳实践文档](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+* [Docker 官方镜像 Dockerfile](https://github.com/docker-library/docs)
+* [Dockerfile 指令详解](https://yeasy.gitbooks.io/docker_practice/content/image/dockerfile/)
+

@@ -27,7 +27,7 @@ nameserver 8.8.8.8
 >
 > 8.8.8.8 是 Google DNS
 >
-> :point_right: 参考：[公共 DNS 哪家强](https://www.zhihu.com/question/32229915)
+> :point\_right: 参考：[公共 DNS 哪家强](https://www.zhihu.com/question/32229915)
 
 （3）测试一下能否 ping 通 www.baidu.com
 
@@ -45,7 +45,7 @@ firewalld 的基本使用
 
 systemctl 是 CentOS7 的服务管理工具中主要的工具，它融合之前 service 和 chkconfig 的功能于一体。
 
-```
+```text
 启动一个服务：systemctl start firewalld.service
 关闭一个服务：systemctl stop firewalld.service
 重启一个服务：systemctl restart firewalld.service
@@ -59,7 +59,7 @@ systemctl 是 CentOS7 的服务管理工具中主要的工具，它融合之前 
 
 配置 firewalld-cmd
 
-```
+```text
 查看版本：firewall-cmd --version
 查看帮助：firewall-cmd --help
 显示状态：firewall-cmd --state
@@ -74,14 +74,14 @@ systemctl 是 CentOS7 的服务管理工具中主要的工具，它融合之前 
 
 开启防火墙端口
 
-```
+```text
 添加：firewall-cmd --zone=public --add-port=80/tcp --permanent    （--permanent永久生效，没有此参数重启后失效）
 重新载入：firewall-cmd --reload
 查看：firewall-cmd --zone= public --query-port=80/tcp
 删除：firewall-cmd --zone= public --remove-port=80/tcp --permanent
 ```
 
-> :point_right: 参考：[CentOS7 使用 firewalld 打开关闭防火墙与端口](https://www.cnblogs.com/moxiaoan/p/5683743.html)
+> :point\_right: 参考：[CentOS7 使用 firewalld 打开关闭防火墙与端口](https://www.cnblogs.com/moxiaoan/p/5683743.html)
 
 ### 1.3. 配置网卡
 
@@ -89,27 +89,27 @@ systemctl 是 CentOS7 的服务管理工具中主要的工具，它融合之前 
 
 参考以下进行配置：
 
-```properties
-TYPE=Ethernet                        # 网络类型：Ethernet以太网
-BOOTPROTO=none                       # 引导协议：自动获取、static静态、none不指定
-DEFROUTE=yes                         # 启动默认路由
-IPV4_FAILURE_FATAL=no                # 不启用IPV4错误检测功能
-IPV6INIT=yes                         # 启用IPV6协议
-IPV6_AUTOCONF=yes                    # 自动配置IPV6地址
-IPV6_DEFROUTE=yes                    # 启用IPV6默认路由
-IPV6_FAILURE_FATAL=no                # 不启用IPV6错误检测功能
+```text
+TYPE=Ethernet                        # 网络类型：Ethernet以太网
+BOOTPROTO=none                       # 引导协议：自动获取、static静态、none不指定
+DEFROUTE=yes                         # 启动默认路由
+IPV4_FAILURE_FATAL=no                # 不启用IPV4错误检测功能
+IPV6INIT=yes                         # 启用IPV6协议
+IPV6_AUTOCONF=yes                    # 自动配置IPV6地址
+IPV6_DEFROUTE=yes                    # 启用IPV6默认路由
+IPV6_FAILURE_FATAL=no                # 不启用IPV6错误检测功能
 IPV6_PEERDNS=yes
 IPV6_PEERROUTES=yes
 IPV6_PRIVACY="no"
 
-NAME=eno16777736                     # 网卡设备的别名（需要和文件名同名）
+NAME=eno16777736                     # 网卡设备的别名（需要和文件名同名）
 UUID=90528772-9967-46da-b401-f82b64b4acbc  # 网卡设备的UUID唯一标识号
-DEVICE=eno16777736                   # 网卡的设备名称
-ONBOOT=yes                           # 开机自动激活网卡
-IPADDR=192.168.1.199                 # 网卡的固定IP地址
-PREFIX=24                            # 子网掩码
-GATEWAY=192.168.1.1                  # 默认网关IP地址
-DNS1=8.8.8.8                         # DNS域名解析服务器的IP地址
+DEVICE=eno16777736                   # 网卡的设备名称
+ONBOOT=yes                           # 开机自动激活网卡
+IPADDR=192.168.1.199                 # 网卡的固定IP地址
+PREFIX=24                            # 子网掩码
+GATEWAY=192.168.1.1                  # 默认网关IP地址
+DNS1=8.8.8.8                         # DNS域名解析服务器的IP地址
 ```
 
 修改完后，执行 `systemctl restart network.service` 重启网卡服务。
@@ -120,7 +120,7 @@ DNS1=8.8.8.8                         # DNS域名解析�
 
 （1）先安装时钟同步工具 ntp
 
-```
+```text
 yum -y install ntp
 ```
 
@@ -136,13 +136,13 @@ systemctl start ntpd.service
 
 NTP 服务的端口是 123,使用的是 udp 协议，所以 NTP 服务器的防火墙必须对外开放 udp 123 这个端口。
 
-```
+```text
 /sbin/iptables -A INPUT -p UDP -i eth0 -s 192.168.0.0/24 --dport 123 -j ACCEPT
 ```
 
 （4）执行时间同步
 
-```
+```text
 /usr/sbin/ntpdate ntp.sjtu.edu.cn
 ```
 
@@ -152,12 +152,12 @@ ntp.sjtu.edu.cn 是上海交通大学 ntp 服务器。
 
 执行如下命令，就可以在每天凌晨 3 点同步系统时间：
 
-```
+```text
 echo "* 3 * * * /usr/sbin/ntpdate ntp.sjtu.edu.cn" >> /etc/crontab
 systemctl restart crond.service
 ```
 
-> :point_right: 参考：https://www.cnblogs.com/quchunhui/p/7658853.html
+> :point\_right: 参考：[https://www.cnblogs.com/quchunhui/p/7658853.html](https://www.cnblogs.com/quchunhui/p/7658853.html)
 
 ## 3. 自动化脚本
 
@@ -195,7 +195,7 @@ Linux 开机的时候，会加载运行 `/etc/rc.d/init.d` 目录下的程序，
 
 简单的说，运行级就是操作系统当前正在运行的功能级别。
 
-```
+```text
 不同的运行级定义如下:
 # 0 - 停机（千万不能把initdefault 设置为0 ）
 # 1 - 单用户模式       　　进入方法#init s = init 1
@@ -208,7 +208,7 @@ Linux 开机的时候，会加载运行 `/etc/rc.d/init.d` 目录下的程序，
 
 这些级别在 `/etc/inittab` 文件里指定，这个文件是 init 程序寻找的主要文件，最先运行的服务是放在/etc/rc.d 目录下的文件。
 
-在 `/etc` 目录下面有这么几个目录值得注意：rcS.d rc0.d rc1.d ... rc6.d (0，1... 6 代表启动级别 0 代表停止，1 代表单用户模式，2-5 代表多用户模式，6 代表重启) 它们的作用就相当于 redhat 下的 rc.d ，你可以把脚本放到 rcS.d，然后修改文件名，给它一个启动序号，如: S88mysql
+在 `/etc` 目录下面有这么几个目录值得注意：rcS.d rc0.d rc1.d ... rc6.d \(0，1... 6 代表启动级别 0 代表停止，1 代表单用户模式，2-5 代表多用户模式，6 代表重启\) 它们的作用就相当于 redhat 下的 rc.d ，你可以把脚本放到 rcS.d，然后修改文件名，给它一个启动序号，如: S88mysql
 
 不过，最好的办法是放到相应的启动级别下面。具体作法:
 
@@ -223,7 +223,7 @@ N 3
 
 （3）设定启动级别
 
-```
+```text
 #  98 为启动序号
 #  2 是系统的运行级别，可自己调整，注意不要忘了结尾的句点
 $ update-rc.d mysql start 98 2 .
@@ -238,14 +238,13 @@ $ update-rc.d mysql start 98 2 .
 当你需要移除这个符号连接时，方法有三种：
 
 1. 直接到 `/etc/rc2.d` 下删掉相应的链接，当然不是最好的方法；
-
 2. 推荐做法：`update-rc.d -f s10 remove`
 3. 如果 update-rc.d 命令你不熟悉，还可以试试看 rcconf 这个命令，也很方便。
 
-> :point_right: 参考：
+> :point\_right: 参考：
 >
-> - https://blog.csdn.net/linuxshine/article/details/50717272
-> - https://www.cnblogs.com/ssooking/p/6094740.html
+> * [https://blog.csdn.net/linuxshine/article/details/50717272](https://blog.csdn.net/linuxshine/article/details/50717272)
+> * [https://www.cnblogs.com/ssooking/p/6094740.html](https://www.cnblogs.com/ssooking/p/6094740.html)
 
 ### 3.2. 定时执行脚本
 
@@ -274,8 +273,8 @@ systemctl status crond.service
 
 有两种方法：
 
-- 在命令行输入：`crontab -e` 然后添加相应的任务，存盘退出。
-- 直接编辑 `/etc/crontab` 文件，即 `vi /etc/crontab`，添加相应的任务。
+* 在命令行输入：`crontab -e` 然后添加相应的任务，存盘退出。
+* 直接编辑 `/etc/crontab` 文件，即 `vi /etc/crontab`，添加相应的任务。
 
 示例：
 
@@ -302,19 +301,19 @@ MAILTO=root
 0 */2 * * * root /home/hello.sh
 ```
 
-> :point_right: 参考：[linux 定时执行脚本](https://blog.csdn.net/z_yong_cool/article/details/79288397)
+> :point\_right: 参考：[linux 定时执行脚本](https://blog.csdn.net/z_yong_cool/article/details/79288397)
 
 ## 4. 配置
 
 ### 4.1. 设置 Linux 启动模式
 
-1. 停机(记得不要把 initdefault 配置为 0，因为这样会使 Linux 不能启动)
+1. 停机\(记得不要把 initdefault 配置为 0，因为这样会使 Linux 不能启动\)
 2. 单用户模式，就像 Win9X 下的安全模式
 3. 多用户，但是没有 NFS
 4. 完全多用户模式，准则的运行级
 5. 通常不用，在一些特殊情况下可以用它来做一些事情
 6. X11，即进到 X-Window 系统
-7. 重新启动 (记得不要把 initdefault 配置为 6，因为这样会使 Linux 不断地重新启动)
+7. 重新启动 \(记得不要把 initdefault 配置为 6，因为这样会使 Linux 不断地重新启动\)
 
 设置方法：
 
@@ -324,6 +323,6 @@ $ sed -i 's/id:5:initdefault:/id:3:initdefault:/' /etc/inittab
 
 ## 5. 参考资料
 
-- [CentOS7 使用 firewalld 打开关闭防火墙与端口](https://www.cnblogs.com/moxiaoan/p/5683743.html)
+* [CentOS7 使用 firewalld 打开关闭防火墙与端口](https://www.cnblogs.com/moxiaoan/p/5683743.html)
+* [linux 定时执行脚本](https://blog.csdn.net/z_yong_cool/article/details/79288397)
 
-- [linux 定时执行脚本](https://blog.csdn.net/z_yong_cool/article/details/79288397)

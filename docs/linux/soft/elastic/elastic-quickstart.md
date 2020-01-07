@@ -1,13 +1,13 @@
 ---
 title: Elastic 技术栈之快速入门
-date: 2017-12-06
+date: '2017-12-06T00:00:00.000Z'
 categories:
-- javatool
+  - javatool
 tags:
-- java
-- javatool
-- log
-- elastic
+  - java
+  - javatool
+  - log
+  - elastic
 ---
 
 # Elastic 技术栈之快速入门
@@ -32,7 +32,7 @@ ELK 是 elastic 公司旗下三款产品 [ElasticSearch](https://www.elastic.co/
 
 ### Elastic 架构
 
-<br>![img](https://www.elastic.co/guide/en/logstash/current/static/images/deploy3.png)<br>
+![img](https://www.elastic.co/guide/en/logstash/current/static/images/deploy3.png)
 
 > **说明**
 >
@@ -68,19 +68,19 @@ java -version
 
 1. [elasticsearch 官方下载地址](https://www.elastic.co/downloads/elasticsearch)下载所需版本包并解压到本地。
 2. 运行 `bin/elasticsearch` （Windows 上运行 `bin\elasticsearch.bat`）
-3. 验证运行成功：linux 上可以执行 `curl http://localhost:9200/` ；windows 上可以用访问 REST 接口的方式来访问 http://localhost:9200/
+3. 验证运行成功：linux 上可以执行 `curl http://localhost:9200/` ；windows 上可以用访问 REST 接口的方式来访问 [http://localhost:9200/](http://localhost:9200/)
 
 > **说明**
 >
 > Linux 上可以执行下面的命令来下载压缩包：
 >
-> ```
+> ```text
 > curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.0.0.tar.gz
 > ```
 >
 > Mac 上可以执行以下命令来进行安装：
 >
-> ```
+> ```text
 > brew install elasticsearch
 > ```
 >
@@ -91,10 +91,9 @@ java -version
 安装步骤如下：
 
 1. 在 [logstash 官方下载地址](https://www.elastic.co/downloads/logstash)下载所需版本包并解压到本地。
-
 2. 添加一个 `logstash.conf` 文件，指定要使用的插件以及每个插件的设置。举个简单的例子：
 
-   ```
+   ```text
    input { stdin { } }
    output {
      elasticsearch { hosts => ["localhost:9200"] }
@@ -111,7 +110,7 @@ java -version
 1. 在 [kibana 官方下载地址](https://www.elastic.co/downloads/kibana)下载所需版本包并解压到本地。
 2. 修改 `config/kibana.yml` 配置文件，设置 `elasticsearch.url` 指向 Elasticsearch 实例。
 3. 运行 `bin/kibana` （Windows 上运行 `bin\kibana.bat`）
-4. 在浏览器上访问 http://localhost:5601
+4. 在浏览器上访问 [http://localhost:5601](http://localhost:5601)
 
 ### 安装 FAQ
 
@@ -121,7 +120,7 @@ java -version
 
 如果以 root 身份运行 elasticsearch，会提示这样的错误：
 
-```
+```text
 can not run elasticsearch as root
 ```
 
@@ -138,11 +137,11 @@ chown -R elk:elk /opt # 假设你的 elasticsearch 安装在 opt 目录下
 su elk
 ```
 
-#### vm.max_map_count 不低于 262144
+#### vm.max\_map\_count 不低于 262144
 
 **问题：**`vm.max_map_count` 表示虚拟内存大小，它是一个内核参数。elasticsearch 默认要求 `vm.max_map_count` 不低于 262144。
 
-```
+```text
 max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
 ```
 
@@ -150,13 +149,13 @@ max virtual memory areas vm.max_map_count [65530] is too low, increase to at lea
 
 你可以执行以下命令，设置 `vm.max_map_count` ，但是重启后又会恢复为原值。
 
-```
+```text
 sysctl -w vm.max_map_count=262144
 ```
 
-持久性的做法是在 `/etc/sysctl.conf` 文件中修改 `vm.max_map_count`  参数：
+持久性的做法是在 `/etc/sysctl.conf` 文件中修改 `vm.max_map_count` 参数：
 
-```
+```text
 echo "vm.max_map_count=262144" > /etc/sysctl.conf
 sysctl -p
 ```
@@ -169,9 +168,9 @@ sysctl -p
 
 #### nofile 不低于 65536
 
-**问题：**  `nofile` 表示进程允许打开的最大文件数。elasticsearch 进程要求可以打开的最大文件数不低于 65536。
+**问题：** `nofile` 表示进程允许打开的最大文件数。elasticsearch 进程要求可以打开的最大文件数不低于 65536。
 
-```
+```text
 max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]
 ```
 
@@ -179,7 +178,7 @@ max file descriptors [4096] for elasticsearch process is too low, increase to at
 
 在 `/etc/security/limits.conf` 文件中修改 `nofile` 参数：
 
-```
+```text
 echo "* soft nofile 65536" > /etc/security/limits.conf
 echo "* hard nofile 131072" > /etc/security/limits.conf
 ```
@@ -188,7 +187,7 @@ echo "* hard nofile 131072" > /etc/security/limits.conf
 
 **问题：** `nproc` 表示最大线程数。elasticsearch 要求最大线程数不低于 2048。
 
-```
+```text
 max number of threads [1024] for user [user] is too low, increase to at least [2048]
 ```
 
@@ -196,7 +195,7 @@ max number of threads [1024] for user [user] is too low, increase to at least [2
 
 在 `/etc/security/limits.conf` 文件中修改 `nproc` 参数：
 
-```
+```text
 echo "* soft nproc 2048" > /etc/security/limits.conf
 echo "* hard nproc 4096" > /etc/security/limits.conf
 ```
@@ -205,7 +204,7 @@ echo "* hard nproc 4096" > /etc/security/limits.conf
 
 **问题：**安装 ELK 后，访问 kibana 页面时，提示以下错误信息：
 
-```
+```text
 Warning No default index pattern. You must select or create one to continue.
 ...
 Unable to fetch mapping. Do you have indices matching the pattern?
@@ -227,12 +226,12 @@ Unable to fetch mapping. Do you have indices matching the pattern?
 
 首先，我们需要修改一下 logstash 服务端 logstash.conf 中的配置
 
-```
+```text
 input { 
   # stdin { }
   tcp { 
     # host:port就是上面appender中的 destination，
-	# 这里其实把logstash作为服务，开启9250端口接收logback发出的消息 
+    # 这里其实把logstash作为服务，开启9250端口接收logback发出的消息 
     host => "127.0.0.1" port => 9250 mode => "server" tags => ["tags"] codec => json_lines 
   }
 }
@@ -248,7 +247,7 @@ output {
 
 然后，在 Java 应用的 pom.xml 中引入 jar 包：
 
-```xml
+```markup
 <dependency>
   <groupId>net.logstash.logback</groupId>
   <artifactId>logstash-logback-encoder</artifactId>
@@ -258,7 +257,7 @@ output {
 
 接着，在 logback.xml 中添加 appender
 
-```xml
+```markup
 <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
   <!--
   destination 是 logstash 服务的 host:port，
@@ -274,16 +273,12 @@ output {
 
 大功告成，此后，`io.github.dunwu.spring` 包中的 TRACE 及以上级别的日志信息都会被定向输出到 logstash 服务。
 
-<br>![img](http://upload-images.jianshu.io/upload_images/3101171-cd876d79a14955b0.png)<br>
+![img](http://upload-images.jianshu.io/upload_images/3101171-cd876d79a14955b0.png)
 
 ## 资料
 
-- [elastic 官方文档](https://www.elastic.co/guide/index.html)
-
-- [elasticsearch github](https://github.com/elastic/elasticsearch)
-
-- [logstash github](https://github.com/elastic/logstash)
-
-- [kibana github](https://github.com/elastic/kibana)
-
+* [elastic 官方文档](https://www.elastic.co/guide/index.html)
+* [elasticsearch github](https://github.com/elastic/elasticsearch)
+* [logstash github](https://github.com/elastic/logstash)
+* [kibana github](https://github.com/elastic/kibana)
 

@@ -1,13 +1,13 @@
 ---
 title: Elastic 技术栈之 Filebeat
-date: 2017-01-03
+date: '2017-01-03T00:00:00.000Z'
 categories:
-- javatool
+  - javatool
 tags:
-- java
-- javatool
-- log
-- elastic
+  - java
+  - javatool
+  - log
+  - elastic
 ---
 
 # Elastic 技术栈之 Filebeat
@@ -18,16 +18,16 @@ Beats 是安装在服务器上的数据中转代理。
 
 Beats 可以将数据直接传输到 Elasticsearch 或传输到 Logstash 。
 
-<br>![img](https://www.elastic.co/guide/en/beats/libbeat/current/images/beats-platform.png)<br>
+![img](https://www.elastic.co/guide/en/beats/libbeat/current/images/beats-platform.png)
 
 Beats 有多种类型，可以根据实际应用需要选择合适的类型。
 
 常用的类型有：
 
-- **Packetbeat：**网络数据包分析器，提供有关您的应用程序服务器之间交换的事务的信息。
-- **Filebeat：**从您的服务器发送日志文件。
-- **Metricbeat：**是一个服务器监视代理程序，它定期从服务器上运行的操作系统和服务收集指标。
-- **Winlogbeat：**提供Windows事件日志。
+* **Packetbeat：**网络数据包分析器，提供有关您的应用程序服务器之间交换的事务的信息。
+* **Filebeat：**从您的服务器发送日志文件。
+* **Metricbeat：**是一个服务器监视代理程序，它定期从服务器上运行的操作系统和服务收集指标。
+* **Winlogbeat：**提供Windows事件日志。
 
 > **参考**
 >
@@ -47,13 +47,13 @@ Filebeat带有内部模块（auditd，Apache，Nginx，System和MySQL），可�
 
 FileBeat 不会让你的管道超负荷。FileBeat 如果是向 Logstash 传输数据，当 Logstash 忙于处理数据，会通知 FileBeat 放慢读取速度。一旦拥塞得到解决，FileBeat 将恢复到原来的速度并继续传播。
 
-<br>![img](https://www.elastic.co/guide/en/beats/filebeat/current/images/filebeat.png)<br>
+![img](https://www.elastic.co/guide/en/beats/filebeat/current/images/filebeat.png)
 
 ## 安装
 
 Unix / Linux 系统建议使用下面方式安装，因为比较通用。
 
-```
+```text
 wget https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.1.1-linux-x86_64.tar.gz
 tar -zxf filebeat-6.1.1-linux-x86_64.tar.gz
 ```
@@ -193,14 +193,13 @@ Filebeat 附带了示例 Kibana 仪表板。在使用仪表板之前，您需要
 
 为了在 Kibana 中加载 Filebeat 的仪表盘，需要在 `filebeat.yml` 配置中启动开关：
 
-```
+```text
 setup.dashboards.enabled: true
 ```
 
 > **参考**
 >
 > 更多内容可以参考：[configuration-dashboards](https://www.elastic.co/guide/en/beats/filebeat/current/configuration-dashboards.html)
->
 
 ## 命令
 
@@ -235,9 +234,9 @@ Filebeat 提供了一套预构建的模块，让您可以快速实施和部署�
 
 ### 运行模块的步骤
 
-- 配置 elasticsearch 和 kibana
+* 配置 elasticsearch 和 kibana
 
-```
+```text
 output.elasticsearch:
   hosts: ["myEShost:9200"]
   username: "elastic"
@@ -250,25 +249,25 @@ setup.kibana:
 
 > username 和 password 是可选的，如果不需要认证则不填。
 
-- 初始化环境
+* 初始化环境
 
 执行下面命令，filebeat 会加载推荐索引模板。
 
-```
+```text
 ./filebeat setup -e
 ```
 
-- 指定模块
+* 指定模块
 
 执行下面命令，指定希望加载的模块。
 
-```
+```text
 ./filebeat -e --modules system,nginx,mysql
 ```
 
 > **参考**
 >
-> 更多内容可以参考： [配置 filebeat 模块](https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-modules.html) | [filebeat 支持模块](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-modules.html)
+> 更多内容可以参考： [配置 filebeat 模块](https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-modules.html) \| [filebeat 支持模块](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-modules.html)
 
 ## 原理
 

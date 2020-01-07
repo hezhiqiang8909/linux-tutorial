@@ -6,7 +6,7 @@
 
 执行 `docker search nginx` 命令查看可用镜像：
 
-```docker
+```text
 # docker search nginx
 INDEX       NAME                                                             DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
 docker.io   docker.io/nginx                                                  Official build of Nginx.                        8272      [OK]       
@@ -22,7 +22,7 @@ docker.io   docker.io/jrcs/letsencrypt-nginx-proxy-companion                 Let
 
 ## 运行镜像
 
-```
+```text
 docker run -p 80:80 --name mynginx -d nginx
 ```
 

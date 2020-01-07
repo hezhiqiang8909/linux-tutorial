@@ -4,15 +4,15 @@
 
 ## 1. Linux 用户管理要点
 
-- 创建用户组 - 使用 [groupadd](#groupadd)
-- 删除用户组 - 使用 [groupdel](#groupdel)
-- 修改用户组信息 - 使用 [groupmod](#groupmod)
-- 创建用户 - 使用 [useradd](#useradd)
-- 删除用户 - 使用 [userdel](#userdel)
-- 修改用户信息 - 使用 [usermod](#usermod)
-- 设置用户认证信息 - 使用 [passwd](#passwd)
-- 切换用户 - 使用 [su](#su)
-- 当前用户想执行没有权限执行的命令时，使用其他用户身份去执行 - 使用 [sudo](#sudo)
+* 创建用户组 - 使用 [groupadd](linux-yong-hu-guan-li.md#groupadd)
+* 删除用户组 - 使用 [groupdel](linux-yong-hu-guan-li.md#groupdel)
+* 修改用户组信息 - 使用 [groupmod](linux-yong-hu-guan-li.md#groupmod)
+* 创建用户 - 使用 [useradd](linux-yong-hu-guan-li.md#useradd)
+* 删除用户 - 使用 [userdel](linux-yong-hu-guan-li.md#userdel)
+* 修改用户信息 - 使用 [usermod](linux-yong-hu-guan-li.md#usermod)
+* 设置用户认证信息 - 使用 [passwd](linux-yong-hu-guan-li.md#passwd)
+* 切换用户 - 使用 [su](linux-yong-hu-guan-li.md#su)
+* 当前用户想执行没有权限执行的命令时，使用其他用户身份去执行 - 使用 [sudo](linux-yong-hu-guan-li.md#sudo)
 
 ## 2. 命令常见用法
 
@@ -20,7 +20,7 @@
 
 > groupadd 命令用于创建一个新的用户组，新用户组的信息将被添加到系统文件中。
 >
-> 参考：http://man.linuxde.net/groupadd
+> 参考：[http://man.linuxde.net/groupadd](http://man.linuxde.net/groupadd)
 
 示例：
 
@@ -33,7 +33,7 @@ $ groupadd -g 344 jsdigname
 
 > groupdel 命令用于删除指定的用户组，本命令要修改的系统文件包括 `/ect/group` 和 `/ect/gshadow`。若该群组中仍包括某些用户，则必须先删除这些用户后，方能删除群组。
 >
-> 参考：http://man.linuxde.net/groupdel
+> 参考：[http://man.linuxde.net/groupdel](http://man.linuxde.net/groupdel)
 
 示例：
 
@@ -46,13 +46,13 @@ $ groupdel damon  # 删除这个用户组
 
 > groupmod 命令更改群组识别码或名称。需要更改群组的识别码或名称时，可用 groupmod 指令来完成这项工作。
 >
-> 参考：http://man.linuxde.net/groupmod
+> 参考：[http://man.linuxde.net/groupmod](http://man.linuxde.net/groupmod)
 
 ### 2.4. useradd
 
 > useradd 命令用于 Linux 中创建的新的系统用户。useradd 可用来建立用户帐号。帐号建好之后，再用 passwd 设定帐号的密码．而可用 userdel 删除帐号。使用 useradd 指令所建立的帐号，实际上是保存在 `/etc/passwd` 文本文件中。
 >
-> 参考：http://man.linuxde.net/useradd
+> 参考：[http://man.linuxde.net/useradd](http://man.linuxde.net/useradd)
 
 示例：
 
@@ -68,7 +68,7 @@ $ useradd caojh -u 544
 
 > userdel 命令用于删除给定的用户，以及与用户相关的文件。若不加选项，则仅删除用户帐号，而不删除相关文件。
 >
-> 参考：http://man.linuxde.net/userdel
+> 参考：[http://man.linuxde.net/userdel](http://man.linuxde.net/userdel)
 
 示例：
 
@@ -83,7 +83,7 @@ $ userdel -r linuxde    # 删除用户linuxde，其 home 目录及文件一并�
 
 > usermod 命令用于修改用户的基本信息。usermod 命令不允许你改变正在线上的使用者帐号名称。当 usermod 命令用来改变 user id，必须确认这名 user 没在电脑上执行任何程序。你需手动更改使用者的 crontab 档。也需手动更改使用者的 at 工作档。采用 NIS server 须在 server 上更动相关的 NIS 设定。
 >
-> 参考：http://man.linuxde.net/usermod
+> 参考：[http://man.linuxde.net/usermod](http://man.linuxde.net/usermod)
 
 示例：
 
@@ -105,7 +105,7 @@ $ usermod -U newuser1
 
 > passwd 命令用于设置用户的认证信息，包括用户密码、密码过期时间等。系统管理者则能用它管理系统用户的密码。只有管理者可以指定用户名称，一般用户只能变更自己的密码。
 >
-> 参考：http://man.linuxde.net/passwd
+> 参考：[http://man.linuxde.net/passwd](http://man.linuxde.net/passwd)
 
 示例：
 
@@ -150,7 +150,7 @@ Empty password.                         # 空密码，也就是没有密码；
 
 > su 命令用于切换当前用户身份到其他用户身份，变更时须输入所要变更的用户帐号与密码。
 >
-> 参考：http://man.linuxde.net/su
+> 参考：[http://man.linuxde.net/su](http://man.linuxde.net/su)
 
 示例：
 
@@ -169,7 +169,7 @@ $ su -test
 
 > sudo 命令用来以其他身份来执行命令，预设的身份为 root。在 `/etc/sudoers` 中设置了可执行 sudo 指令的用户。若其未经授权的用户企图使用 sudo，则会发出警告的邮件给管理员。用户使用 sudo 时，必须先输入密码，之后有 5 分钟的有效期限，超过期限则必须重新输入密码。
 >
-> 参考：http://man.linuxde.net/sudo
+> 参考：[http://man.linuxde.net/sudo](http://man.linuxde.net/sudo)
 
 示例：
 
@@ -193,3 +193,4 @@ $ sudo -L
 #### 2.9.2. 免密码授权 sudo
 
 与给普通用户授权 sudo 类似，区别仅在于第 2 步：`mary ALL=(ALL) NOPASSWD: ALL`。
+

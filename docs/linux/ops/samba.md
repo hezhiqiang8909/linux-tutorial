@@ -14,13 +14,13 @@
 
 ### 1.1. 查看是否已经安装 samba
 
-- CentOS：`rpm -qa | grep samba`
-- Ubuntu：`dpkg -l | grep samba`
+* CentOS：`rpm -qa | grep samba`
+* Ubuntu：`dpkg -l | grep samba`
 
 ### 1.2. 安装 samba 工具
 
-- CentOS：`yum install -y samba samba-client samba-common`
-- Ubuntu：`sudo apt-get install -y samba samba-client`
+* CentOS：`yum install -y samba samba-client samba-common`
+* Ubuntu：`sudo apt-get install -y samba samba-client`
 
 ### 1.3. 配置 samba
 
@@ -34,7 +34,7 @@ vim /etc/samba/smb.conf
 
 修改配置如下：
 
-```ini
+```text
 [global]
         workgroup = SAMBA
         security = user
@@ -83,10 +83,10 @@ vim /etc/samba/smb.conf
 
 > 说明：
 >
-> - 我在这里添加了一个 **[fs]** 标签，这就是共享区域的配置。
-> - 这里设置 `path` 属性为 `/share/fs`，意味着准备共享 `/share/fs` 目录，需要根据实际需要设置路径。`/share/fs` 目录的权限要设置为 **777**：`chmod 777 /share/fs`。
-> - `browseable`、`writable` 等属性就比较容易理解了，即配置共享目录的访问权限。
-> - `valid users` 属性指定允许访问的用户，需要注意的是指定的用户必须是 Linux 机器上实际存在的用户。
+> * 我在这里添加了一个 **\[fs\]** 标签，这就是共享区域的配置。
+> * 这里设置 `path` 属性为 `/share/fs`，意味着准备共享 `/share/fs` 目录，需要根据实际需要设置路径。`/share/fs` 目录的权限要设置为 **777**：`chmod 777 /share/fs`。
+> * `browseable`、`writable` 等属性就比较容易理解了，即配置共享目录的访问权限。
+> * `valid users` 属性指定允许访问的用户，需要注意的是指定的用户必须是 Linux 机器上实际存在的用户。
 
 ### 1.4. 创建 samba 用户
 
@@ -101,8 +101,8 @@ Added user root.
 
 根据提示输入 samba 用户的密码。当 samba 服务成功安装、启动后，通过 Windows 系统访问机器共享目录时，就要输入这里配置的用户名、密码。
 
-- 查看 samba 服务器中已拥有哪些用户 - `pdbedit -L`
-- 删除 samba 服务中的某个用户 - `smbpasswd -x 用户名`
+* 查看 samba 服务器中已拥有哪些用户 - `pdbedit -L`
+* 删除 samba 服务中的某个用户 - `smbpasswd -x 用户名`
 
 ### 1.5. 启动 samba 服务
 
@@ -124,20 +124,20 @@ $ sudo systemctl status smb.service    # 查询 samba 状态
 
 Ubuntu 16.04.3
 
-```
+```text
 $ sudo service smbd restart
 ```
 
 ### 1.6. 为 samba 添加防火墙规则
 
-```
+```text
 $ sudo firewall-cmd --permanent --zone=public --add-service=samba
 $ sudo firewall-cmd --reload
 ```
 
 ### 1.7. 测试 samba 服务
 
-```
+```text
 $ smbclient //localhost/fs -U root
 ```
 
@@ -149,7 +149,7 @@ Windows：
 
 访问：`\\<你的ip>\<你的共享路径>` ：
 
-<br>![img](http://dunwu.test.upcdn.net/snap/20180920180928161334.png!zp)<br>
+![img](http://dunwu.test.upcdn.net/snap/20180920180928161334.png!zp)
 
 Mac：
 
@@ -161,14 +161,14 @@ Mac：
 
 你可以从 [这里](https://git.samba.org/samba.git/?p=samba.git;a=blob_plain;f=examples/smb.conf.default;hb=HEAD) 获取到默认配置文件：
 
-```
+```text
 $ cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
 $ wget "https://git.samba.org/samba.git/?p=samba.git;a=blob_plain;f=examples/smb.conf.default;hb=HEAD" -O /etc/samba/smb.conf
 ```
 
 smb.conf 默认内容如下：
 
-```ini
+```text
 [global]
         workgroup = SAMBA
         security = user
@@ -202,9 +202,9 @@ smb.conf 默认内容如下：
         directory mask = 0775
 ```
 
-### 2.2. 全局参数 [global]
+### 2.2. 全局参数 \[global\]
 
-```ini
+```text
 [global]
 
 config file = /usr/local/samba/lib/smb.conf.%m
@@ -325,9 +325,9 @@ printing = cups
 说明：设置Samba共享打印机的类型。现在支持的打印系统有：bsd, sysv, plp, lprng, aix, hpux, qnx
 ```
 
-### 2.3. 共享参数 [共享名]
+### 2.3. 共享参数 \[共享名\]
 
-```ini
+```text
 [共享名]
 
 comment = 任意字符串
@@ -402,8 +402,8 @@ guest ok = yes
 
 问题现象：
 
-- 出现 **NT_STATUS_ACCESS_DENIED** 错误
-- Windows 下成功登陆 samba 后，点击共享目录仍然提示——你可能没有权限访问网络资源。
+* 出现 **NT\_STATUS\_ACCESS\_DENIED** 错误
+* Windows 下成功登陆 samba 后，点击共享目录仍然提示——你可能没有权限访问网络资源。
 
 解决步骤：
 
@@ -418,7 +418,7 @@ $ sudo firewall-cmd --permanent --zone=public --add-service=samba
 $ sudo firewall-cmd --reload
 ```
 
-2. 关闭 selinux
+1. 关闭 selinux
 
 ```bash
 # 将 /etc/selinux/config 文件中的 SELINUX 设为 disabled
@@ -431,7 +431,7 @@ $ reboot
 ### 3.2. window 下对 samba 的清理操作
 
 1. windows 清除访问 samba 局域网密码缓存
-   - 在 dos 窗口中输入 `control userpasswords2` 或者 `control keymgr.dll`，然后【高级】/【密码管理】，删掉保存的该机器密码。
+   * 在 dos 窗口中输入 `control userpasswords2` 或者 `control keymgr.dll`，然后【高级】/【密码管理】，删掉保存的该机器密码。
 2. windows 清除连接的 linux 的 samba 服务缓存
    1. 打开 win 的命令行。
    2. 输入 net use，就会打印出当前缓存的连接上列表。
@@ -439,7 +439,8 @@ $ reboot
 
 ## 4. 参考资料
 
-- http://blog.51cto.com/yuanbin/115761
-- https://www.jianshu.com/p/750be209a6f0
-- https://github.com/judasn/Linux-Tutorial/blob/master/markdown-file/Samba.md
-- https://blog.csdn.net/lan120576664/article/details/50396511
+* [http://blog.51cto.com/yuanbin/115761](http://blog.51cto.com/yuanbin/115761)
+* [https://www.jianshu.com/p/750be209a6f0](https://www.jianshu.com/p/750be209a6f0)
+* [https://github.com/judasn/Linux-Tutorial/blob/master/markdown-file/Samba.md](https://github.com/judasn/Linux-Tutorial/blob/master/markdown-file/Samba.md)
+* [https://blog.csdn.net/lan120576664/article/details/50396511](https://blog.csdn.net/lan120576664/article/details/50396511)
+

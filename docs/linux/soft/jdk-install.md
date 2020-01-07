@@ -1,16 +1,12 @@
 # JDK 安装
 
-> 关键词：JDK, JAVA_HOME, CLASSPATH, PATH
+> 关键词：JDK, JAVA\_HOME, CLASSPATH, PATH
 
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [JDK 安装步骤](#jdk-安装步骤)
-- [Windows 系统安装方法](#windows-系统安装方法)
-- [Linux 系统安装方法](#linux-系统安装方法)
-    - [RedHat 发行版本使用 rpm 安装方法](#redhat-发行版本使用-rpm-安装方法)
-- [参考资料](#参考资料)
-
-<!-- /TOC -->
+* [JDK 安装步骤](jdk-install.md#jdk-安装步骤)
+* [Windows 系统安装方法](jdk-install.md#windows-系统安装方法)
+* [Linux 系统安装方法](jdk-install.md#linux-系统安装方法)
+  * [RedHat 发行版本使用 rpm 安装方法](jdk-install.md#redhat-发行版本使用-rpm-安装方法)
+* [参考资料](jdk-install.md#参考资料)
 
 ## JDK 安装步骤
 
@@ -22,13 +18,13 @@ a. 进入 [Java 官网下载页面](https://www.oracle.com/technetwork/java/java
 
 b. 选择需要的版本：
 
-<br>![img](http://dunwu.test.upcdn.net/snap/20180920181010164121.png!zp)<br>
+![img](http://dunwu.test.upcdn.net/snap/20180920181010164121.png!zp)
 
 c. 选择对应操作系统的安装包：
 
 Windows 系统选择 exe 安装包；Mac 系统选择 dmp 安装包；Linux 系统选择 tar.gz 压缩包（RedHat 发行版可以安装 rpm 包）。
 
-<br>![img](http://dunwu.test.upcdn.net/snap/20180920181010164308.png!zp)<br>
+![img](http://dunwu.test.upcdn.net/snap/20180920181010164308.png!zp)
 
 （2）运行安装包，按提示逐步安装
 
@@ -42,8 +38,8 @@ Windows 系统选择 exe 安装包；Mac 系统选择 dmp 安装包；Linux 系�
 
 需要根据 Windows 系统实际情况，选择 exe 安装文件：
 
-- 32 位计算机选择 Windows x86
-- 64 位计算机选择 Windows x64
+* 32 位计算机选择 Windows x86
+* 64 位计算机选择 Windows x64
 
 （2）运行安装包，按提示逐步安装
 
@@ -51,34 +47,32 @@ Windows 系统选择 exe 安装包；Mac 系统选择 dmp 安装包；Linux 系�
 
 a. 安装完成后，右击"我的电脑"，点击"属性"，选择"高级系统设置"；
 
-<br>![img](https://www.runoob.com/wp-content/uploads/2013/12/win-java1.png)<br>
+![img](https://www.runoob.com/wp-content/uploads/2013/12/win-java1.png)
 
 b. 选择"高级"选项卡，点击"环境变量"；
 
-<br>![img](https://www.runoob.com/wp-content/uploads/2013/12/java-win2.png)<br>
+![img](https://www.runoob.com/wp-content/uploads/2013/12/java-win2.png)
 
 然后就会出现如下图所示的画面：
 
-在"系统变量"中设置 3 项属性，JAVA_HOME,PATH,CLASSPATH(大小写无所谓),若已存在则点击"编辑"，不存在则点击"新建"。
+在"系统变量"中设置 3 项属性，JAVA\_HOME,PATH,CLASSPATH\(大小写无所谓\),若已存在则点击"编辑"，不存在则点击"新建"。
 
 变量设置参数如下：
 
-- 变量名：**JAVA_HOME**
-- 变量值：**C:\Program Files (x86)\Java\jdk1.8.0_91** // 要根据自己的实际路径配置
-
-- 变量名：**CLASSPATH**
-- 变量值：**.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;** //记得前面有个"."
-
-- 变量名：**Path**
-- 变量值：**%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;**
+* 变量名：**JAVA\_HOME**
+* 变量值：**C:\Program Files \(x86\)\Java\jdk1.8.0\_91** // 要根据自己的实际路径配置
+* 变量名：**CLASSPATH**
+* 变量值：**.;%JAVA\_HOME%\lib\dt.jar;%JAVA\_HOME%\lib\tools.jar;** //记得前面有个"."
+* 变量名：**Path**
+* 变量值：**%JAVA\_HOME%\bin;%JAVA\_HOME%\jre\bin;**
 
 （4）验证 Java 是否安装成功
 
-a. "开始"->"运行"，键入"cmd"；
+a. "开始"-&gt;"运行"，键入"cmd"；
 
 b. 键入命令: **java -version**、**java**、**javac** 几个命令，出现以下信息，说明环境变量配置成功；
 
-<br>![img](https://www.runoob.com/wp-content/uploads/2013/12/java-win9.png)<br>
+![img](https://www.runoob.com/wp-content/uploads/2013/12/java-win9.png)
 
 ## Linux 系统安装方法
 
@@ -86,8 +80,8 @@ b. 键入命令: **java -version**、**java**、**javac** 几个命令，出现�
 
 需要根据 Linux 系统实际情况，选择 tar.gz 压缩包：
 
-- 32 位计算机选择 Linux x86
-- 64 位计算机选择 Linux x64
+* 32 位计算机选择 Linux x86
+* 64 位计算机选择 Linux x64
 
 （2）解压压缩包到本地
 
@@ -132,8 +126,9 @@ $ rpm -ivh jdk-8u181-linux-x64.rpm
 
 ## 更多内容
 
-- **引申**
-  - [操作系统、运维部署总结系列](https://github.com/dunwu/OS)
-- **引用**
-- http://www.runoob.com/java/java-environment-setup.html
-- https://blog.csdn.net/deliciousion/article/details/78046007
+* **引申**
+  * [操作系统、运维部署总结系列](https://github.com/dunwu/OS)
+* **引用**
+* [http://www.runoob.com/java/java-environment-setup.html](http://www.runoob.com/java/java-environment-setup.html)
+* [https://blog.csdn.net/deliciousion/article/details/78046007](https://blog.csdn.net/deliciousion/article/details/78046007)
+

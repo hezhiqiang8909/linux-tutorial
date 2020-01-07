@@ -4,7 +4,7 @@
 
 ## 查看可下载镜像
 
-```docker
+```text
 # docker search mysql
 INDEX       NAME                                                             DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
 docker.io   docker.io/mysql                                                  MySQL is a widely used, open-source relati...   5757      [OK]       
@@ -17,16 +17,17 @@ docker.io   docker.io/mysql/mysql-server                                     Opt
 
 比如，我想下载最新版本，则执行如下命令：
 
-```docker
+```text
 docker pull mysql
 ```
 
 ## 使用镜像
 
-```docker
+```text
 docker run -p 3306:3306 --name mysql -v /opt/docker_v/mysql/conf:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=123456 -d mysql
 ```
 
 ## 资源
 
-* https://hub.docker.com/_/mysql/
+* [https://hub.docker.com/\_/mysql/](https://hub.docker.com/_/mysql/)
+

@@ -39,9 +39,9 @@ cd distribution/target/nacos-server-$version/nacos/bin
 
 ### Linux/Unix/Mac
 
-启动命令(standalone代表着单机模式运行，非集群模式):
+启动命令\(standalone代表着单机模式运行，非集群模式\):
 
-```
+```text
 sh startup.sh -m standalone
 ```
 
@@ -49,7 +49,7 @@ sh startup.sh -m standalone
 
 启动命令：
 
-```
+```text
 cmd startup.cmd
 ```
 
@@ -59,25 +59,25 @@ cmd startup.cmd
 
 ### 服务注册
 
-```
+```text
 curl -X POST 'http://127.0.0.1:8848/nacos/v1/ns/instance?serviceName=nacos.naming.serviceName&ip=20.18.7.10&port=8080'
 ```
 
 ### 服务发现
 
-```
+```text
 curl -X GET 'http://127.0.0.1:8848/nacos/v1/ns/instances?serviceName=nacos.naming.serviceName'
 ```
 
 ### 发布配置
 
-```
+```text
 curl -X POST "http://127.0.0.1:8848/nacos/v1/cs/configs?dataId=nacos.cfg.dataId&group=test&content=HelloWorld"
 ```
 
 ### 获取配置
 
-```
+```text
 curl -X GET "http://127.0.0.1:8848/nacos/v1/cs/configs?dataId=nacos.cfg.dataId&group=test"
 ```
 
@@ -85,13 +85,13 @@ curl -X GET "http://127.0.0.1:8848/nacos/v1/cs/configs?dataId=nacos.cfg.dataId&g
 
 ### Linux/Unix/Mac
 
-```
+```text
 sh shutdown.sh
 ```
 
 ### Windows
 
-```
+```text
 cmd shutdown.cmd
 ```
 
@@ -99,5 +99,5 @@ cmd shutdown.cmd
 
 ## 参考资料
 
-- [Nacos Quick Start](https://nacos.io/zh-cn/docs/quick-start.html)
+* [Nacos Quick Start](https://nacos.io/zh-cn/docs/quick-start.html)
 

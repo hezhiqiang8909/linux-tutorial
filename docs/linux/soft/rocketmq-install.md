@@ -1,29 +1,25 @@
 # RocketMQ 安装部署
 
-<!-- TOC depthFrom:2 depthTo:3 -->
-
-- [环境要求](#环境要求)
-- [下载解压](#下载解压)
-- [启动 Name Server](#启动-name-server)
-- [启动 Broker](#启动-broker)
-- [收发消息](#收发消息)
-- [关闭服务器](#关闭服务器)
-- [FAQ](#faq)
-    - [connect to <172.17.0.1:10909> failed](#connect-to-172170110909-failed)
-- [参考资料](#参考资料)
-
-<!-- /TOC -->
+* [环境要求](rocketmq-install.md#环境要求)
+* [下载解压](rocketmq-install.md#下载解压)
+* [启动 Name Server](rocketmq-install.md#启动-name-server)
+* [启动 Broker](rocketmq-install.md#启动-broker)
+* [收发消息](rocketmq-install.md#收发消息)
+* [关闭服务器](rocketmq-install.md#关闭服务器)
+* [FAQ](rocketmq-install.md#faq)
+  * [connect to  failed](rocketmq-install.md#connect-to-172170110909-failed)
+* [参考资料](rocketmq-install.md#参考资料)
 
 ## 环境要求
 
-- 推荐 64 位操作系统：Linux/Unix/Mac
-- 64bit JDK 1.8+
-- Maven 3.2.x
-- Git
+* 推荐 64 位操作系统：Linux/Unix/Mac
+* 64bit JDK 1.8+
+* Maven 3.2.x
+* Git
 
 ## 下载解压
 
-进入官方下载地址：https://rocketmq.apache.org/dowloading/releases/，选择合适版本
+进入官方下载地址：[https://rocketmq.apache.org/dowloading/releases/，选择合适版本](https://rocketmq.apache.org/dowloading/releases/，选择合适版本)
 
 建议选择 binary 版本。
 
@@ -77,7 +73,7 @@ Send shutdown request to mqnamesrv(36664) OK
 
 ## FAQ
 
-### connect to <172.17.0.1:10909> failed
+### connect to  failed
 
 启动后，生产者客户端连接 RocketMQ 时报错：
 
@@ -106,7 +102,7 @@ org.apache.rocketmq.remoting.exception.RemotingConnectException: connect to <172
 
 修改 conf/broker.conf，增加两行来指定启动 broker 的 IP：
 
-```
+```text
 namesrvAddr = 10.10.30.63:9876
 brokerIP1 = 10.10.30.63
 ```
@@ -119,8 +115,9 @@ nohup sh bin/mqbroker -n localhost:9876 -c conf/broker.conf &
 
 ## 更多内容
 
-- **引申**
-  - [操作系统、运维部署总结系列](https://github.com/dunwu/OS)
-- **引用**
-  - [RocketMQ 官方文档](http://rocketmq.apache.org/docs/quick-start/)
-  - [RocketMQ 搭建及刨坑](http://laciagin.me/2017/12/07/RocketMQ%E6%90%AD%E5%BB%BA%E5%8F%8A%E5%88%A8%E5%9D%91/)
+* **引申**
+  * [操作系统、运维部署总结系列](https://github.com/dunwu/OS)
+* **引用**
+  * [RocketMQ 官方文档](http://rocketmq.apache.org/docs/quick-start/)
+  * [RocketMQ 搭建及刨坑](http://laciagin.me/2017/12/07/RocketMQ%E6%90%AD%E5%BB%BA%E5%8F%8A%E5%88%A8%E5%9D%91/)
+

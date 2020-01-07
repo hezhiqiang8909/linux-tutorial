@@ -4,11 +4,11 @@
 
 ## 1. Linux 硬件管理要点
 
-- 查看磁盘空间 - 使用 [df](#df)
-- 查看文件或目录的磁盘空间 - 使用 [du](#du)
-- 实时查看系统整体运行状态（如：CPU、内存） - 使用 [top](#top)
-- 查看已使用和未使用的内存 - 使用 [free](#free)
-- 查看磁盘 I/O 使用状况 - 使用 [iotop](#iotop)
+* 查看磁盘空间 - 使用 [df](linux-ying-jian-guan-li.md#df)
+* 查看文件或目录的磁盘空间 - 使用 [du](linux-ying-jian-guan-li.md#du)
+* 实时查看系统整体运行状态（如：CPU、内存） - 使用 [top](linux-ying-jian-guan-li.md#top)
+* 查看已使用和未使用的内存 - 使用 [free](linux-ying-jian-guan-li.md#free)
+* 查看磁盘 I/O 使用状况 - 使用 [iotop](linux-ying-jian-guan-li.md#iotop)
 
 ## 2. 命令常见用法
 
@@ -16,7 +16,7 @@
 
 > df 命令用于显示磁盘分区上的可使用的磁盘空间。默认显示单位为 KB。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。
 >
-> 参考：http://man.linuxde.net/df
+> 参考：[http://man.linuxde.net/df](http://man.linuxde.net/df)
 
 示例：
 
@@ -54,7 +54,7 @@ none                         0         0         0   -  /proc/sys/fs/binfmt_misc
 
 > du 命令也是查看使用空间的，但是与 df 命令不同的是：du 命令是对文件和目录磁盘使用的空间的查看，还是和 df 命令有一些区别的。
 >
-> 参考：http://man.linuxde.net/du
+> 参考：[http://man.linuxde.net/du](http://man.linuxde.net/du)
 
 示例：
 
@@ -106,13 +106,13 @@ root@localhost [test]# du
 
 > top 命令可以实时动态地查看系统的整体运行情况，是一个综合了多方信息监测系统性能和运行信息的实用工具。通过 top 命令所提供的互动式界面，用热键可以管理。
 >
-> 参考：http://man.linuxde.net/top
+> 参考：[http://man.linuxde.net/top](http://man.linuxde.net/top)
 
 ### 2.4. free
 
 > free 命令可以显示当前系统未使用的和已使用的内存数目，还可以显示被内核使用的内存缓冲区。
 >
-> 参考：http://man.linuxde.net/free
+> 参考：[http://man.linuxde.net/free](http://man.linuxde.net/free)
 
 示例：
 
@@ -133,7 +133,7 @@ Swap:         4094          0       4094
 
 > iotop 命令是一个用来监视磁盘 I/O 使用状况的 top 类工具。iotop 具有与 top 相似的 UI，其中包括 PID、用户、I/O、进程等相关信息。Linux 下的 IO 统计工具如 iostat，nmon 等大多数是只能统计到 per 设备的读写情况，如果你想知道每个进程是如何使用 IO 的就比较麻烦，使用 iotop 命令可以很方便的查看。
 >
-> 参考：http://man.linuxde.net/iotop
+> 参考：[http://man.linuxde.net/iotop](http://man.linuxde.net/iotop)
 
 示例：
 
@@ -153,3 +153,4 @@ Total DISK read:       0.00 B/s | Total DISK write:       0.00 B/s
    11 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [khelper]
 2572 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [bluetooth]
 ```
+
