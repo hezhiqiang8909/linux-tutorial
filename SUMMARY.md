@@ -52,7 +52,7 @@
     * [Docker 快速入门](docs/docker/docker-quickstart.md)
   * [linux-tutorial](docs/coverpage.md)
   * [linux-tutorial](docs/sidebar.md)
-* [codes](codes/README.md)
+* [运维脚本](codes/README.md)
   * [Shell 脚本大全](codes/shell/README.md)
   * [CentOS 常规操作运维脚本集合](codes/linux/README.md)
     * [脚本使用说明](codes/linux/sys/README.md)
