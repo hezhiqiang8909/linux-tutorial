@@ -1,7 +1,7 @@
 # Table of contents
 
 * [Linux 运维教程](README.md)
-* [linux-tutorial](docs/README.md)
+* [linux-教程](docs/README.md)
   * [linux](docs/linux/README.md)
     * [Linux 命令行](docs/linux/cli/README.md)
       * [Linux 硬件管理](docs/linux/cli/Linux硬件管理.md)
