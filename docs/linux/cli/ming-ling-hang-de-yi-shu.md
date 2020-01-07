@@ -6,8 +6,6 @@
 
 ## 命令行的艺术
 
-![https://gitter.im/jlevy/the-art-of-command-line?utm\_source=badge&amp;utm\_medium=badge&amp;utm\_campaign=pr-badge&amp;utm\_content=badge](../../../.gitbook/assets/image.png)
-
 * [前言](ming-ling-hang-de-yi-shu.md#前言)
 * [基础](ming-ling-hang-de-yi-shu.md#基础)
 * [日常使用](ming-ling-hang-de-yi-shu.md#日常使用)
